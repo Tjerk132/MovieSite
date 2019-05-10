@@ -1,0 +1,114 @@
+﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+@using Models
+@using Models.Enumeration
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
+
+<div style="margin-left:3%">
+    <h3>Movies</h3>
+        <form method="post" action="@Url.Action("FilterMovies", "Movies")">
+            <input type="text" name="Title">
+
+            <button class="likebtn" style="color:white">Filter</button>
+        </form>
+    @if (Model.AccountViewModel.Account.Priority == Priority.Admin)
+     {
+        <form action="@Url.Action("AddMovie", "Movies")">
+            <button class="likebtn" style="width:140px; height:40px; float:right">Add new movie</button>
+        </form>
+     }
+        <h3 style="color:red">@Model.AccountViewModel.Message</h3>
+</div>
+
+@if (Model.Movies.Count > 0)
+ {
+    <table class="Table">
+        <thead>
+            <tr>
+                <th width="3%">
+                    Title
+                </th>
+                <th width="2%">
+                    Times Watched
+                </th>
+                <th width="2%">
+                    Release date
+                </th>
+                <th width="2%">
+                    Rating
+                </th>
+                @if (Model.AccountViewModel.Account.Priority == Priority.User)
+                {
+                    <th width="2%">
+                        Watched
+                    </th>
+                    <th width="7%">
+                        Rate
+                    </th>
+                    <th width="1%">
+                        Review
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (Movie movie in Model.Movies)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayName(movie.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayName(movie.Watched.ToString())
+                    </th>
+                    <th>
+                        @Html.DisplayName(movie.ReleaseDate.ToString("dd-MM-yyyy"))
+                    </th>
+                    <th>
+                        @Html.DisplayName(movie.Rating.ToString())
+                    </th>
+                   @if (Model.AccountViewModel.Account.Priority == Priority.User)
+                    {
+                       <form method="post" action="@Url.Action("ChangeWatched", "Movies")">
+                           <th hidden>
+                               <input type="text" name="MovieId" value="@movie.MovieId">
+                           </th>
+                           <th>
+                               <button class="likebtn" title="Add this movie to watched"><span style="cursor: pointer;">+</span></button>
+                           </th>
+                       </form>
+                       <form method="post" action="@Url.Action("SubmitRating", "Rating")">
+                           <th>
+                               <input type="text" name="Rating" placeholder="Put a rating here (number)">
+                               <button class="likebtn"><span title="submit rating" style="cursor: pointer;">Submit</span></button>
+                           </th>
+                           <div hidden>
+                               <input type="text" name="MovieId" value="@movie.MovieId">
+                           </div>
+                       </form>
+                       <form method="post" action="@Url.Action("NewReview", "Review")">
+                           <th>
+                               <button class="likebtn"><span title="Add Review" style="cursor: pointer; float:right; margin-top:6px">Review</span></button>
+                           </th>
+                           <th hidden>
+                               <input hidden type="text" name="MovieId" value="@movie.MovieId">
+                           </th>
+                           <th hidden>
+                               <input hidden type="text" name="Title" value="@movie.Title">
+                           </th>
+                       </form>
+     
+                    }
+               </tr>
+            }
+        </tbody>
+    </table>
+ }
+<script>
+    function changeVisibility() {
+      document.getElementById("hidepanel").style.visibility = "hidden";
+    }
+</script>
+

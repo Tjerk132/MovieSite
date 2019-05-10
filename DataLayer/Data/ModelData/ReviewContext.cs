@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+using System.Web;
+using Models;
+using Interfaces.Interfaces;
+
+namespace DataLayer.Data
+{
+    public class ReviewContext : IReviewContext
+    {    
+        ConnectionString conn = new ConnectionString();
+        public void Add(Review review, int MovieId)
+        {
+            using (conn.connectionstring)
+            {
+                conn.connectionstring.Open();
+                SqlCommand cmd = new SqlCommand("AddReview")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn.connectionstring
+                };
+                cmd.Parameters.AddRange(new[]
+                {
+                    new SqlParameter("@MovieId", MovieId),
+                    new SqlParameter("@ReviewDate", review.Date),
+                    new SqlParameter("@Review", review.Text),
+                    new SqlParameter("@Autor", review.Autor)
+                });
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public List<Review> GetReviews(int MovieId)
+        {
+            List<Review> reviews = new List<Review>();
+
+            ConnectionString conn = new ConnectionString();
+            using (conn.connectionstring)
+            {
+                conn.connectionstring.Open();
+                SqlCommand cmd = new SqlCommand("GetReviews")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn.connectionstring
+                };
+                cmd.Parameters.AddWithValue("@MovieId", MovieId);
+                cmd.ExecuteNonQuery();
+
+                DataTable dtResult = new DataTable();
+                dtResult.Load(cmd.ExecuteReader());
+                foreach (DataRow dr in dtResult.Rows)
+                {
+                    Review Review = new Review();
+
+                    int.TryParse(dr[0].ToString(), out int ratingid);
+                    Review.ReviewId = ratingid;
+
+                    DateTime.TryParse(dr[2].ToString(), out DateTime reviewdate);
+                    Review.Date = reviewdate;
+
+                    Review.Text = dr[3].ToString();
+
+                    Review.Autor = dr[4].ToString();
+
+                    reviews.Add(Review);
+                }
+            }
+            return reviews;
+        }
+    }
+}

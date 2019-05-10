@@ -1,0 +1,66 @@
+﻿@model MovieSite.Models.ViewModels.ReviewViewModel
+@using Models;
+@{
+    ViewData["Title"] = "NewReview";
+}
+<div style="margin-left:15%;">
+    <h3>Add a review</h3>
+    <form method="post" action="@Url.Action("AddReview", "Review")">
+        <div hidden>
+            <input type="text" name="MovieId" value="@Model.MovieId">
+        </div>
+        <div>
+            <input type="text" readonly="readonly" name="Title" value="@Model.MovieTitle">
+        </div>
+        <div>
+            <input type="text" readonly="readonly" name="ReviewDate" value="@DateTime.Now.Date.ToShortDateString()">
+        </div>
+
+        <div class="control">
+            <textarea class="reviewtext" name="Review" placeholder="Enter your review here"></textarea>
+        </div>
+
+        <button class="likebtn"><span title="Add Review">Add Review</span></button>
+    </form>
+    @if (Model.Reviews.Count > 0)
+     {
+        <table class="table" style="font-size:14px; width:80%">
+
+            <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Autor
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Review
+                    </th>
+                </tr></thead>
+            @foreach (Review review in Model.Reviews)
+             {
+                <tbody>
+                    <tr>
+                        <th>
+                            @Html.DisplayName((Model.Reviews.IndexOf(review) + 1).ToString())
+                        </th>
+                        <th>
+                            @Html.DisplayName(review.Autor)
+                        </th>
+                        <th>
+                            @Html.DisplayName(review.Date.ToShortDateString())
+                        </th>
+                        <th>
+                            @Html.DisplayName(review.Text)
+                        </th>
+                    </tr>
+                </tbody>
+             }
+        </table>
+     }
+     else { <h4>No Reviews Yet</h4>}
+</div>
+

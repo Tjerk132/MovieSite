@@ -1,0 +1,37 @@
+﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+@{
+    ViewBag.Title = "Login";
+}
+<link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
+<div class="EnterInfoView"  >
+    @if (Model != null)
+    {
+    <div style="color:red">
+        @Model.AccountViewModel.Message
+    </div>
+    }
+    <form method="post" action="@Url.Action("Login","Account")">
+        <div style="margin-left:10px">
+            <label>Username</label>
+            <input style="height:40px; margin-top:2px" type="text" name="Name" placeholder="Enter Username" required>
+            <div>
+                <label>Password</label>
+                <input style="height:40px; margin-top:5px; margin-left:3.5px" type="password" name="Password" placeholder="Enter Password" required>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+                <button class="likebtn" style="margin-left:10%">Login</button>
+            </div>
+        </div>
+
+    </form>
+        <div>
+            <form action="@Url.Action("Index", "Account")">
+                <button class="cancelbtn">Cancel</button>
+            </form>
+        </div>
+</div>
+
+
