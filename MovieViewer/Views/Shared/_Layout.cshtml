@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="~/css/site.css" />
 <link rel="stylesheet" href="~/css/stylesheet.css" />
 <title>@ViewBag.Title - My ASP.NET Application</title>
-<div class="topnav" style="margin-top:-55px">
+<div class="topnav" style="margin-top:-55px;">
     <a href="@Url.Action("Index", "Movies")" style="margin-left:2%; font-size:24px">Movies</a>
     <a href="@Url.Action("Index", "Account")" style="margin-left:7%; font-size:24px">Account</a>
     @if (Context.Session.GetObject<Account>("User") != null)

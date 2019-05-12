@@ -22,24 +22,30 @@ namespace MovieSite.Controllers
         public IActionResult NewReview(int MovieId, string Title)
         {
             var ReviewLogic = new ReviewLogic(_context);
+            List<Review> reviews = ReviewLogic.GetReviews(MovieId);
             ReviewViewModel reviewViewModel = new ReviewViewModel
             {
-                Reviews = ReviewLogic.GetReviews(MovieId),
+                Reviews = reviews,
                 MovieId = MovieId,
-                MovieTitle = Title
-            };
+                MovieTitle = Title,
+                AverageRating = ReviewLogic.AverageRating(reviews),
+                RatingPercentages = ReviewLogic.GetRatingPercentages(reviews)
+            };  
             return View(reviewViewModel);
         }
         [HttpPost]
-        public IActionResult AddReview(int MovieId, DateTime ReviewDate, string review, string Title)
+        public IActionResult AddReview(int MovieId, Review review, string Title)
         {
             Account account = HttpContext.Session.GetObject<Account>("User");
             Review Review = new Review
             {
-                Date = ReviewDate,
-                Text = review, 
+                Date = review.Date,
+                Text = review.Text,
+                StarRating = review.StarRating,
                 Autor = account.Name
             };
+            var Reviewlogic = new ReviewLogic(_context);
+            Reviewlogic.AddReview(Review, MovieId);
             return RedirectToAction("NewReview", new { MovieId, Title });
         }
     }

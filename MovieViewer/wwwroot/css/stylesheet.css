@@ -55,9 +55,6 @@ button {
     position: relative;
 }
 
-.container {
-    padding: 32px;
-}
 
 span.psw {
     float: right;
@@ -163,6 +160,16 @@ span.psw {
     text-align:center; 
     margin-left:35px;
 }
+.RatingAverages {
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.6);
+    width: 320px;
+    height: 330px;
+    margin-top: -420px;
+    margin-left:480px;
+    font-size: 16px;
+    padding:4px,4px,2px,2px;
+    border-radius:20px; 
+}
 
 .EnterInfoView {
     background-color: #f1f1f1;
@@ -174,9 +181,84 @@ span.psw {
 .Table {
     font-size: 14.5px;
     width: 90%;
-    margin-left: 30px;
     border-collapse: collapse;
     text-align: center;
+    margin-top: 70px;
     border-right: 1px solid black;
     border-left: 1px solid black;
 }
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 50px;
+}
+
+    .rating label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        cursor: pointer;
+    }
+
+        .rating label:last-child {
+            position: static;
+        }
+
+        .rating label:nth-child(1) {
+            z-index: 5;
+        }
+
+        .rating label:nth-child(2) {
+            z-index: 4;
+        }
+
+        .rating label:nth-child(3) {
+            z-index: 3;
+        }
+
+        .rating label:nth-child(4) {
+            z-index: 2;
+        }
+
+        .rating label:nth-child(5) {
+            z-index: 1;
+        }
+
+        .rating label input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .rating label .icon {
+            float: left;
+            color: transparent;
+        }
+
+        .rating label:last-child .icon {
+            color: #000;
+        }
+
+    .rating:not(:hover) label input:checked ~ .icon,
+    .rating:hover label:hover input ~ .icon {
+        color: #09f;
+    }
+
+    .rating label input:focus:not(:checked) ~ .icon:last-child {
+        color: #000;
+        text-shadow: 0 0 5px #09f;
+    }
+
+
+progress {
+    text-decoration: solid black;
+    max-width: 100px;
+    width: 100px;
+    background-color:black
+}
+   
+

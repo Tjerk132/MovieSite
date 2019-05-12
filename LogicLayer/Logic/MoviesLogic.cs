@@ -3,6 +3,7 @@ using DataLayer.Data;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LogicLayer.Logic
 {
@@ -32,7 +33,7 @@ namespace LogicLayer.Logic
         {
             if (!string.IsNullOrWhiteSpace(Title))
             {
-                movies = movies.FindAll(x => x.Title.Contains(Title));
+                movies = movies.Where(x => x.Title.ToLower().Contains(Title.ToLower())).ToList();
             }
             return movies;
         }

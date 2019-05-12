@@ -30,5 +30,30 @@ namespace LogicLayer.Logic
         {
             return Repository.GetReviews(MovieId);
         }
+        public double AverageRating(List<Review> reviews)
+        {
+            if (reviews.Count > 0)
+            {
+                return Math.Round(reviews.Average(x => x.StarRating), 1);
+            }
+            else return 50.0;
+        }
+        public List<double> GetRatingPercentages(List<Review> reviews)
+        {
+            List<double> Percentages = new List<double>();
+            for (int i = 1; i < 6; i++)
+            {
+                Percentages.Add(
+                           Math.Round(
+                            (from Review review
+                                in reviews
+                                   where review.StarRating == i
+                                   select review).ToList().Count /
+                            (double)reviews.Count * 100.0
+                                   ,0)
+                               );
+            }
+            return Percentages;
+        }
     }
 }

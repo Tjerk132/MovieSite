@@ -46,6 +46,7 @@ namespace DataLayer.Data
         }
         public void CreateNew(Account account)
         {
+            ConnectionString conn = new ConnectionString();
             using (conn.connectionstring)
             {
                 conn.connectionstring.Open();

@@ -29,7 +29,8 @@ namespace DataLayer.Data
                     new SqlParameter("@MovieId", MovieId),
                     new SqlParameter("@ReviewDate", review.Date),
                     new SqlParameter("@Review", review.Text),
-                    new SqlParameter("@Autor", review.Autor)
+                    new SqlParameter("@Autor", review.Autor),
+                    new SqlParameter("@StarRating", review.StarRating)
                 });
                 cmd.ExecuteNonQuery();
             }
@@ -59,12 +60,15 @@ namespace DataLayer.Data
                     int.TryParse(dr[0].ToString(), out int ratingid);
                     Review.ReviewId = ratingid;
 
-                    DateTime.TryParse(dr[2].ToString(), out DateTime reviewdate);
+                    DateTime.TryParse(dr[1].ToString(), out DateTime reviewdate);
                     Review.Date = reviewdate;
 
-                    Review.Text = dr[3].ToString();
+                    Review.Text = dr[2].ToString();
 
-                    Review.Autor = dr[4].ToString();
+                    Review.Autor = dr[3].ToString();
+
+                    int.TryParse(dr[4].ToString(), out int starrating);
+                    Review.StarRating = starrating;
 
                     reviews.Add(Review);
                 }

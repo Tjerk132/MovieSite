@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using MovieSite.Models.ViewModels;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
+using Microsoft.AspNetCore.Routing;
 
 namespace MovieSite.Controllers
 {
@@ -23,7 +24,7 @@ namespace MovieSite.Controllers
             _context = accountcontext;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             SharedIndexViewModel viewModel = new SharedIndexViewModel();
             
@@ -36,21 +37,20 @@ namespace MovieSite.Controllers
             }
             return View(viewModel);
         }
-        public ActionResult CreateNew()
+        public IActionResult CreateNew()
         {
             return View();
         }
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         } 
-        public ActionResult LogoutUser()
+        public IActionResult LogoutUser()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-        [HttpPost]
-        public ActionResult Login(Account account)
+        public IActionResult LoginUser(Account account)
         {
             var AccountLogic = new AccountLogic(_context);
             account = AccountLogic.LoginUser(account);
@@ -64,7 +64,7 @@ namespace MovieSite.Controllers
             if (account.Name == null)
             {
                 viewModel.AccountViewModel.Message = "Wrong account information";
-                return View(viewModel);
+                return View("Login",viewModel);
             }
             else
             {
@@ -73,12 +73,11 @@ namespace MovieSite.Controllers
             }
         }
         [HttpPost]
-        public ActionResult CreateNew(Account account)
+        public IActionResult CreateNew(Account account)
         {
             var AccountLogic = new AccountLogic(_context);
             AccountLogic.CreateNew(account);
-            HttpContext.Session.SetObject("User", account);
-            return RedirectToAction("Index");
+            return RedirectToAction("LoginUser", new RouteValueDictionary(account));
         }
     }
 }

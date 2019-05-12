@@ -12,5 +12,7 @@ namespace MovieSite.Models.ViewModels
         public List<Review> Reviews { get; set; }
         public int MovieId { get; set; }
         public string MovieTitle { get; set; }
+        public double AverageRating { get; set; }
+        public List<double> RatingPercentages { get; set; }
     }
 }
