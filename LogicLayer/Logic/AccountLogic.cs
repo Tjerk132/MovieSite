@@ -30,6 +30,8 @@ namespace LogicLayer.Logic
             {
                 account.Priority = Priority.Admin;
             }
+            else account.Priority = Priority.User;
+
             return account;
         }
         public void CreateNew(Account account)

@@ -16,6 +16,13 @@ input[type=text], input[type=password] {
     box-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.4);
 }
 
+.NoItems {
+    position:absolute;
+    top: 70%;
+    left: 35%
+    
+}
+
 
 /* Set a style for all buttons */
 button {
