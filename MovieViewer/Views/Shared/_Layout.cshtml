@@ -1,16 +1,22 @@
 ﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 <link rel="stylesheet" href="~/css/stylesheet.css" />
-<title>@ViewBag.Title - My ASP.NET Application</title>
-<div class="topnav" style="margin-top:-55px;">
-    <a href="@Url.Action("Index", "Movies")" style="margin-left:2%; font-size:24px">Movies</a>
-    <a href="@Url.Action("Index", "Account")" style="margin-left:7%; font-size:24px">Account</a>
-    @if (Context.Session.GetObject<Account>("User") != null)
-     {
-        Account Account = Context.Session.GetObject<Account>("User");
-        <h4 style="font-size:24px; text-align:right; color:white; margin-right:10px"> @Account.Name </h4>
-     }
-</div>
+<title>@ViewBag.Title - MovieSearcher</title>
+
+<div class="nav-bar">
+    <ul>
+        <li><a href="@Url.Action("Index", "Movies")" style="font-size:24px">Movies</a>
+        <li><a href="@Url.Action("Index", "Account")" style="font-size:24px">Account</a>
+        <li style="float:right;">
+            @if (Context.Session.GetObject<Account>("User") != null)
+            {
+                Account Account = Context.Session.GetObject<Account>("User");
+                <a class="Username" href="@Url.Action("Index", "Account")"> @Account.Name </a>
+            }
+        </li>
+    </ul>
+</div>  
+
 @RenderBody()
 <footer>
     <div style="margin-left:40%;">Today is @DateTime.Now.DayOfWeek</div>

@@ -6,7 +6,7 @@
 }
 <link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
 
-<div style="margin-left:3%">
+<div style="margin-left:10%; margin-top:6%">
     <h3>Movies</h3>
         <form method="post" action="@Url.Action("FilterMovies", "Movies")">
             <input type="text" name="Title">
@@ -19,35 +19,35 @@
             <button class="likebtn" style="width:140px; height:40px; float:right">Add new movie</button>
         </form>
      }
-        <h3 style="color:red">@Model.AccountViewModel.Message</h3>
+        <h3 class="ErrorMessage">@Model.AccountViewModel.Message</h3>
 </div>
 
 @if (Model.Movies.Count > 0)
  {
-    <table class="Table">
+    <table class="Table" style="margin-left:10%;">
         <thead>
             <tr>
-                <th width="3%">
+                <th width="12%">
                     Title
                 </th>
-                <th width="2%">
+                <th width="12%">
                     Times Watched
                 </th>
-                <th width="2%">
+                <th width="12%">
                     Release date
                 </th>
-                <th width="2%">
+                <th width="12%">
                     Rating
                 </th>
                 @if (Model.AccountViewModel.Account.Priority == Priority.User)
                 {
-                    <th width="2%">
+                    <th width="12%">
                         Watched
                     </th>
-                    <th width="7%">
+                    <th width="12%">
                         Rate
                     </th>
-                    <th width="1%">
+                    <th width="12%">
                         Review
                     </th>
                 }
@@ -64,7 +64,7 @@
                         @Html.DisplayName(movie.Watched.ToString())
                     </th>
                     <th>
-                        @Html.DisplayName(movie.ReleaseDate.ToString("dd-MM-yyyy"))
+                        @Html.DisplayName(movie.ReleaseDate.ToShortDateString())
                     </th>
                     <th>
                         @Html.DisplayName(movie.Rating.ToString())
@@ -72,9 +72,9 @@
                    @if (Model.AccountViewModel.Account.Priority == Priority.User)
                     {
                        <form method="post" action="@Url.Action("ChangeWatched", "Movies")">
-                           <th hidden>
+                           <div hidden>
                                <input type="text" name="MovieId" value="@movie.MovieId">
-                           </th>
+                           </div>
                            <th>
                                <button class="likebtn" title="Add this movie to watched"><span style="cursor: pointer;">+</span></button>
                            </th>
@@ -82,7 +82,7 @@
                        <form method="post" action="@Url.Action("SubmitRating", "Rating")">
                            <th>
                                <input type="text" name="Rating" placeholder="Put a rating here (number)">
-                               <button class="likebtn"><span title="submit rating" style="cursor: pointer;">Submit</span></button>
+                               <button class="likebtn" style="margin-left:70px"><span title="submit rating" style="cursor: pointer;">Submit</span></button>
                            </th>
                            <div hidden>
                                <input type="text" name="MovieId" value="@movie.MovieId">
@@ -90,14 +90,14 @@
                        </form>
                        <form method="post" action="@Url.Action("NewReview", "Review")">
                            <th>
-                               <button class="likebtn"><span title="Add Review" style="cursor: pointer; float:right; margin-top:6px">Review</span></button>
+                               <button class="likebtn" style="margin-top:22px"><span title="Add Review" style="cursor: pointer; float:right; margin-top:6px">Review</span></button>
                            </th>
-                           <th hidden>
+                           <div hidden>
                                <input hidden type="text" name="MovieId" value="@movie.MovieId">
-                           </th>
-                           <th hidden>
+                           </div>
+                           <div hidden>
                                <input hidden type="text" name="Title" value="@movie.Title">
-                           </th>
+                           </div>
                        </form>
      
                     }

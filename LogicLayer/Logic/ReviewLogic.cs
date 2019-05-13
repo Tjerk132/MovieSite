@@ -36,7 +36,7 @@ namespace LogicLayer.Logic
             {
                 return Math.Round(reviews.Average(x => x.StarRating), 1);
             }
-            else return 50.0;
+            else return 0;
         }
         public List<double> GetRatingPercentages(List<Review> reviews)
         {
@@ -45,11 +45,11 @@ namespace LogicLayer.Logic
             {
                 Percentages.Add(
                            Math.Round(
-                            (from Review review
-                                in reviews
-                                   where review.StarRating == i
-                                   select review).ToList().Count /
-                            (double)reviews.Count * 100.0
+                                  (from Review review
+                                    in reviews
+                                    where review.StarRating == i
+                                    select review).ToList().Count /
+                                  (double)reviews.Count * 100.0
                                    ,0)
                                );
             }

@@ -13,5 +13,6 @@ namespace Models
         public string Name { get; set; }
         public string Password { get; set; }
         public Priority Priority { get; set; }
+        public int Watched { get; set; }
     }
 }

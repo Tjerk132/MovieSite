@@ -1,0 +1,18 @@
+﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Details Account</h3>
+<div style="padding:10px 30px">
+    <h4>
+        Username : @Html.DisplayName(Model.AccountViewModel.Account.Name)
+    </h4>
+    <h4>
+        Priority : @Html.DisplayName(Model.AccountViewModel.Account.Priority.ToString())
+    </h4>
+    <h4>
+        Movies watched : @Html.DisplayName(Model.AccountViewModel.Account.Watched.ToString())
+    </h4>
+</div>
+

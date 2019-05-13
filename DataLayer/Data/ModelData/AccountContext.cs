@@ -38,6 +38,7 @@ namespace DataLayer.Data
                             account.AccountId = reader.GetInt32(0);
                             account.Name = reader.GetString(1);
                             account.Password = reader.GetString(2);
+                            account.Watched = reader.GetInt32(3);
                         }
                     }
                     return account;

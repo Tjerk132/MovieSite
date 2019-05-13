@@ -19,7 +19,7 @@ namespace MovieSite.Controllers
         {
             _context = reviewcontext;
         }
-        public IActionResult NewReview(int MovieId, string Title)
+        public IActionResult NewReview(int MovieId, string Title, string Message)
         {
             var ReviewLogic = new ReviewLogic(_context);
             List<Review> reviews = ReviewLogic.GetReviews(MovieId);
@@ -31,22 +31,34 @@ namespace MovieSite.Controllers
                 AverageRating = ReviewLogic.AverageRating(reviews),
                 RatingPercentages = ReviewLogic.GetRatingPercentages(reviews)
             };  
+            if (Message != null)
+            {
+                reviewViewModel.Message = Message;
+            }
             return View(reviewViewModel);
         }
         [HttpPost]
         public IActionResult AddReview(int MovieId, Review review, string Title)
         {
-            Account account = HttpContext.Session.GetObject<Account>("User");
-            Review Review = new Review
+            if (review.StarRating > 0 && !string.IsNullOrWhiteSpace(review.Text))
             {
-                Date = review.Date,
-                Text = review.Text,
-                StarRating = review.StarRating,
-                Autor = account.Name
-            };
-            var Reviewlogic = new ReviewLogic(_context);
-            Reviewlogic.AddReview(Review, MovieId);
-            return RedirectToAction("NewReview", new { MovieId, Title });
+                Account account = HttpContext.Session.GetObject<Account>("User");
+                Review Review = new Review
+                {
+                    Date = review.Date,
+                    Text = review.Text,
+                    StarRating = review.StarRating,
+                    Autor = account.Name
+                };
+                var Reviewlogic = new ReviewLogic(_context);
+                Reviewlogic.AddReview(Review, MovieId);
+                return RedirectToAction("NewReview", new { MovieId, Title });
+            }
+            else
+            {
+                string Message = "Please insert all fields";
+                return RedirectToAction("NewReview", new { Message, MovieId, Title });
+            }
         }
     }
 }

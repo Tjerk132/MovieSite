@@ -44,7 +44,18 @@ namespace MovieSite.Controllers
         public IActionResult Login()
         {
             return View();
-        } 
+        }
+        public IActionResult Details()
+        {
+            SharedIndexViewModel viewModel = new SharedIndexViewModel
+            {
+                AccountViewModel = new AccountViewModel()
+                {
+                    Account = HttpContext.Session.GetObject<Account>("User")
+                }
+            };
+            return View(viewModel);
+        }
         public IActionResult LogoutUser()
         {
             HttpContext.Session.Clear();
