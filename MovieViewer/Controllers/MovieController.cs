@@ -37,17 +37,18 @@ namespace MovieSite.Controllers
                 foreach (var Movie in MovieLogic.GetMovies())
                 {
                     viewModel.Movies.Add(new Movie
-                    {
-                        MovieId = Movie.MovieId,
-                        Title = Movie.Title,
-                        Watched = Movie.Watched,
-                        ReleaseDate = Movie.ReleaseDate,
-                        Rating = Movie.Rating
-                    });
+                    (
+                        Movie.MovieId,
+                        Movie.Title,
+                        Movie.ReleaseDate,
+                        Movie.Watched,
+                        Movie.Rating
+                    ));
                 }
                 if (HttpContext.Session.GetString("Message") != null)
                 {
                     viewModel.AccountViewModel.Message = HttpContext.Session.GetString("Message").ToString();
+                    HttpContext.Session.SetString("Message", "");
                 }
                 return View(viewModel);
             }
@@ -96,14 +97,6 @@ namespace MovieSite.Controllers
                 SharedviewModel.AccountViewModel.Message = "No movies found";
             }
             return View("Index", SharedviewModel);
-        }
-        public ActionResult ClearSession()
-        {
-            if (HttpContext.Session.GetString("Message") != null)
-            {
-                HttpContext.Session.SetString("Message", "");
-            }
-            return RedirectToAction("Index");
         }
     }
 }

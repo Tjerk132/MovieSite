@@ -27,7 +27,7 @@ namespace MovieSite.Controllers
         public IActionResult Index()
         {
             SharedIndexViewModel viewModel = new SharedIndexViewModel();
-            
+
             if (HttpContext.Session.GetObject<Account>("User") != null)
             {
                 viewModel.AccountViewModel = new AccountViewModel()
@@ -61,6 +61,7 @@ namespace MovieSite.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult LoginUser(Account account)
         {
             var AccountLogic = new AccountLogic(_context);

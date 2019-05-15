@@ -30,17 +30,20 @@ namespace DataLayer.Data
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    account = new Account();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            account.AccountId = reader.GetInt32(0);
-                            account.Name = reader.GetString(1);
-                            account.Password = reader.GetString(2);
-                            account.Watched = reader.GetInt32(3);
+                            account = new Account
+                            {
+                                AccountId = reader.GetInt32(0),
+                                Name = reader.GetString(1),
+                                Password = reader.GetString(2),
+                                Watched = reader.GetInt32(3)
+                            };
                         }
                     }
+                    else account = new Account();
                     return account;
                 }
             }

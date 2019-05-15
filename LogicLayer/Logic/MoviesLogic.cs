@@ -17,8 +17,7 @@ namespace LogicLayer.Logic
 
         public void AddMovie(string Title, DateTime ReleaseDate)
         {
-            Movie movie = new Movie
-            { Title = Title, Watched = 0, ReleaseDate = ReleaseDate };
+            Movie movie = new Movie(0, Title, ReleaseDate, 0, 0);
             Repository.Add(movie);
         }
         public List<Movie>GetMovies()

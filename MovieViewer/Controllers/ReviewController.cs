@@ -47,8 +47,8 @@ namespace MovieSite.Controllers
                 {
                     Date = review.Date,
                     Text = review.Text,
-                    StarRating = review.StarRating,
-                    Autor = account.Name
+                    Autor = account.Name,
+                    StarRating = review.StarRating
                 };
                 var Reviewlogic = new ReviewLogic(_context);
                 Reviewlogic.AddReview(Review, MovieId);

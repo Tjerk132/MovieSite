@@ -3,35 +3,33 @@
     ViewBag.Title = "Login";
 }
 <link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
-<div class="EnterInfoView"  >
+<div class="EnterInfoView">
+    <h3>Inloggen</h3>
     @if (Model != null)
-    {
-    <div class="ErrorMessage">
-        @Model.AccountViewModel.Message
-    </div>
-    }
+     {
+        <div class="ErrorMessage">
+            @Model.AccountViewModel.Message
+        </div>
+     }
     <form method="post" action="@Url.Action("LoginUser","Account")">
-        <div style="margin-left:10px">
+        <div class="EnterInfoViewDivs">
             <label>Username</label>
-            <input style="height:40px; margin-top:2px" type="text" name="Name" placeholder="Enter Username" required>
-            <div>
-                <label>Password</label>
-                <input style="height:40px; margin-top:5px; margin-left:3.5px" type="password" name="Password" placeholder="Enter Password" required>
-            </div>
-            <div>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-                <button class="likebtn" style="margin-left:10%">Login</button>
-            </div>
+            <input type="text" name="Name" placeholder="Enter Username" required>
         </div>
-
-    </form>
+        <div class="EnterInfoViewDivs">
+            <label>Password</label>
+            <input type="password" name="Password" placeholder="Enter Password" required>
+        </div>
         <div>
-            <form action="@Url.Action("Index", "Account")">
-                <button class="cancelbtn">Cancel</button>
-            </form>
+            <label style="margin-right:40%">
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+            <button class="likebtn" style="float:left; margin-top:50px">Login</button>
         </div>
+    </form>
+    <form action="@Url.Action("Index", "Account")">
+        <button class="cancelbtn" action="@Url.Action("Index", "Account")">Cancel</button>
+    </form>
 </div>
 
 

@@ -28,21 +28,18 @@ namespace DataLayer.Data
                 dtResult.Load(cmd.ExecuteReader());
                 foreach (DataRow dr in dtResult.Rows)
                 {
-                    Movie movie = new Movie();
 
                     int.TryParse(dr[0].ToString(), out int movieId);
-                    movie.MovieId = movieId;
 
-                    movie.Title = dr[1].ToString();
+                    string Title = dr[1].ToString();
 
                     DateTime.TryParse(dr[2].ToString(), out DateTime ReleaseDate);
-                    movie.ReleaseDate = ReleaseDate;
 
                     int.TryParse(dr[3].ToString(), out int timesWatched);
-                    movie.Watched = timesWatched;
 
                     int.TryParse(dr[4].ToString(), out int Rating);
-                    movie.Rating = Rating;
+
+                    Movie movie = new Movie(movieId, Title, ReleaseDate, timesWatched, Rating);
 
                     movies.Add(movie);
                 }
