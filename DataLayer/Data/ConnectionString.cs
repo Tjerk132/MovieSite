@@ -19,10 +19,15 @@ namespace DataLayer.Data
             //TrustServerCertificate=False;
             //ApplicationIntent=ReadWrite; 
             //MultiSubnetFailover=False"
-            @"Server = mssql.fhict.local;
-            Database=dbi386599;
-            User Id = dbi386599;
+            @"Data Source = mssql.fhict.local;
+            Initial Catalog = dbi386599;
+            Persist Security Info=True;
+            User ID = dbi386599;
             Password=12345;"
+            //@"Server = mssql.fhict.local;
+            //Database=dbi386599;
+            //User Id = dbi386599;
+            //Password=12345;"
         );
     }
 }

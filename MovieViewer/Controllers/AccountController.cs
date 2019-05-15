@@ -61,7 +61,7 @@ namespace MovieSite.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-        
+        [HttpPost]
         public IActionResult LoginUser(Account account)
         {
             var AccountLogic = new AccountLogic(_context);
@@ -84,7 +84,7 @@ namespace MovieSite.Controllers
                 return RedirectToAction("Index", "Movies");
             }
         }
-        
+        [HttpPost]
         public IActionResult CreateNew(Account account)
         {
             var AccountLogic = new AccountLogic(_context);
