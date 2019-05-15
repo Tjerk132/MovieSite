@@ -49,11 +49,11 @@ namespace LogicLayer.Logic
             //If movie has no reviews for one or more ratingstars insert 0 value for missing ratingstar review 
             //(to avoid displaying ratingpercentage at wrong ratingstar)
             //Add missing review(s) after linq query to avoid added review being taken in total percentage
-            for (int i = 1; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
-                if (!reviews.Exists(x => x.StarRating == i))
+                if (!reviews.Exists(x => x.StarRating == i+1))
                 {
-                    Percentages.Insert(i-1, 0);
+                    Percentages.Insert(i, 0);
                 }
             }
             return Percentages;

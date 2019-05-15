@@ -11,17 +11,18 @@ namespace DataLayer.Data
     {
         public SqlConnection connectionstring = new SqlConnection
         (
-            @"Data Source = (localdb)\MSSQLLocalDB;
-            Initial Catalog = Database;
-            Integrated Security = True;
-            Connect Timeout = 30; 
-            Encrypt=False;
-            TrustServerCertificate=False;
-            ApplicationIntent=ReadWrite; 
-            MultiSubnetFailover=False"
-            //@"Data Source=(LocalDB)\MSSQLLocalDB;
-            //AttachDbFilename=C:\Users\tjerk\source\repos\MovieMovie\DataTest\Data\App_Data\Database.mdf
-            //Integrated Security=True"
+            //@"Data Source = (localdb)\MSSQLLocalDB;
+            //Initial Catalog = Database;
+            //Integrated Security = True;
+            //Connect Timeout = 30; 
+            //Encrypt=False;
+            //TrustServerCertificate=False;
+            //ApplicationIntent=ReadWrite; 
+            //MultiSubnetFailover=False"
+            @"Server = mssql.fhict.local;
+            Database=dbi386599;
+            User Id = dbi386599;
+            Password=12345;"
         );
     }
 }
