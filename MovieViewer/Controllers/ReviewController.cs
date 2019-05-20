@@ -29,12 +29,9 @@ namespace MovieSite.Controllers
                 MovieId = MovieId,
                 MovieTitle = Title,
                 AverageRating = ReviewLogic.AverageRating(reviews),
-                RatingPercentages = ReviewLogic.GetRatingPercentages(reviews)
+                RatingPercentages = ReviewLogic.GetRatingPercentages(reviews),
+                Message = Message
             };  
-            if (Message != null)
-            {
-                reviewViewModel.Message = Message;
-            }
             return View(reviewViewModel);
         }
         [HttpPost]

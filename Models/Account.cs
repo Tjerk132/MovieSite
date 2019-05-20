@@ -14,5 +14,6 @@ namespace Models
         public string Password { get; set; }
         public Priority Priority { get; set; }
         public int Watched { get; set; }
+        public string passwordhash { get; set; }
     }
 }

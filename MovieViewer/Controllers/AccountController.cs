@@ -13,6 +13,7 @@ using MovieSite.Models.ViewModels;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Routing;
+using LogicLayer;
 
 namespace MovieSite.Controllers
 {
@@ -89,7 +90,8 @@ namespace MovieSite.Controllers
         {
             var AccountLogic = new AccountLogic(_context);
             AccountLogic.CreateNew(account);
-            return RedirectToAction("LoginUser", new RouteValueDictionary(account));
+            HttpContext.Session.SetObject("User", account);
+            return RedirectToAction("Index"/*, new RouteValueDictionary(account)*/);
         }
     }
 }

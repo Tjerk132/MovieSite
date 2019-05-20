@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web;
 using Models;
+using Helpers;
 using Interfaces.Interfaces;
 
 namespace DataLayer.Data
@@ -25,7 +26,6 @@ namespace DataLayer.Data
                     Connection = conn.connectionstring
                 };
                 cmd.Parameters.AddWithValue("@username", account.Name);
-                cmd.Parameters.AddWithValue("@password", account.Password);
                 cmd.ExecuteNonQuery();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -34,19 +34,19 @@ namespace DataLayer.Data
                     {
                         while (reader.Read())
                         {
-                            account = new Account
-                            {
-                                AccountId = reader.GetInt32(0),
-                                Name = reader.GetString(1),
-                                Password = reader.GetString(2),
-                                Watched = reader.GetInt32(3)
-                            };
+                            account.AccountId = reader.GetInt32(0);
+                            account.Name = reader.GetString(1);
+                            account.Watched = reader.GetInt32(2);
+                            account.passwordhash = reader.GetString(3);
                         }
                     }
-                    else account = new Account();
-                    return account;
                 }
             }
+            if (account.passwordhash == null || !PasswordHelper.ValidatePassword(account.Password, account.passwordhash))
+            {
+                account = new Account();               
+            }
+            return account;
         }
         public void CreateNew(Account account)
         {
@@ -62,7 +62,7 @@ namespace DataLayer.Data
                 cmd.Parameters.AddRange(new[]
                 {
                     new SqlParameter("@Name", account.Name),
-                    new SqlParameter("@Password", account.Password)
+                    new SqlParameter("@Password", account.passwordhash)
                 });
                 cmd.ExecuteNonQuery();
             }

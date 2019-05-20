@@ -44,7 +44,7 @@
     <div class="RatingAverages">
 
         <p style="margin-left:15px">
-            Average rating :  @Model.AverageRating ★ from @Model.Reviews.Count reviews
+            Average rating :  @Model.AverageRating ★ from @Model.Reviews.Count review(s)
             @for (int i = 0; i < Model.RatingPercentages.Count; i++)
              {
                 <div style="margin-left:15%; width:200px;">
@@ -93,7 +93,7 @@
             <tbody style="border-bottom:solid black; width: 100%">
                 <tr>
                     <th>
-                        @Html.Encode(review.Text)
+                        @Html.Raw(review.Text)        
                     </th>
                     <th>
                     </th>

@@ -4,14 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Net.Http;
-using System.Security.Cryptography;
-using DataLayer.Data;
-using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 using DataLayer.Data.ModelData;
 using Models;
 using Interfaces.Interfaces;
 using Models.Enumeration;
+using Helpers;
 
 namespace LogicLayer.Logic
 {
@@ -36,6 +33,7 @@ namespace LogicLayer.Logic
         }
         public void CreateNew(Account account)
         {
+            account.passwordhash = PasswordHelper.HashPassword(account.Password);
             Repository.CreateNew(account);
         }
     }

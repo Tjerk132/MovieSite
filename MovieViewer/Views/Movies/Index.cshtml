@@ -8,103 +8,104 @@
 
 <div style="margin-left:10%; margin-top:6%">
     <h3>Movies</h3>
-        <form method="post" action="@Url.Action("FilterMovies", "Movies")">
-            <input type="text" name="Title">
+    <form method="post" action="@Url.Action("FilterMovies", "Movies")">
+        <input type="text" name="Title">
 
-            <button class="likebtn" style="color:white">Filter</button>
-        </form>
+        <button class="likebtn" style="color:white">Filter</button>
+    </form>
     @if (Model.AccountViewModel.Account.Priority == Priority.Admin)
-     {
+    {
         <form action="@Url.Action("AddMovie", "Movies")">
-            <button class="likebtn" style="width:140px; height:40px; float:right">Add new movie</button>
+            <button class="likebtn" style="width:140px;">Add new movie</button>
         </form>
-     }
-        <h3 class="ErrorMessage">@Model.AccountViewModel.Message</h3>
+    }
+
+    <h3 class="ErrorMessage">@Model.AccountViewModel.Message</h3>
 </div>
 
 @if (Model.Movies.Count > 0)
  {
-    <table class="Table" style="margin-left:10%;">
-        <thead>
+<table class="Table" style="margin-left:10%;">
+    <thead>
+        <tr>
+            <th width="12%">
+                Title
+            </th>
+            <th width="12%">
+                Times Watched
+            </th>
+            <th width="12%">
+                Release date
+            </th>
+            <th width="12%">
+                Rating
+            </th>
+            @if (Model.AccountViewModel.Account.Priority == Priority.User)
+            {
+                <th width="12%">
+                    Watched
+                </th>
+                <th width="12%">
+                    Rate
+                </th>
+                <th width="12%">
+                    Review
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Movie movie in Model.Movies)
+        {
             <tr>
-                <th width="12%">
-                    Title
+                <th>
+                    @Html.DisplayName(movie.Title)
                 </th>
-                <th width="12%">
-                    Times Watched
+                <th>
+                    @Html.DisplayName(movie.Watched.ToString())
                 </th>
-                <th width="12%">
-                    Release date
+                <th>
+                    @Html.DisplayName(movie.ReleaseDate.ToShortDateString())
                 </th>
-                <th width="12%">
-                    Rating
+                <th>
+                    @Html.DisplayName(movie.Rating.ToString())
                 </th>
                 @if (Model.AccountViewModel.Account.Priority == Priority.User)
                 {
-                    <th width="12%">
-                        Watched
-                    </th>
-                    <th width="12%">
-                        Rate
-                    </th>
-                    <th width="12%">
-                        Review
-                    </th>
+                    <form method="post" action="@Url.Action("ChangeWatched", "Movies")">
+                        <div hidden>
+                            <input type="text" name="MovieId" value="@movie.MovieId">
+                        </div>
+                        <th>
+                            <button class="likebtn" title="Add this movie to watched"><span style="cursor: pointer;">+</span></button>
+                        </th>
+                    </form>
+                    <form method="post" action="@Url.Action("SubmitRating", "Rating")">
+                        <th>
+                            <input type="text" name="Rating" placeholder="Put a rating here (number)">
+                            <button class="likebtn" style="margin-left:70px"><span title="submit rating" style="cursor: pointer;">Submit</span></button>
+                        </th>
+                        <div hidden>
+                            <input type="text" name="MovieId" value="@movie.MovieId">
+                        </div>
+                    </form>
+                    <form method="post" action="@Url.Action("NewReview", "Review")">
+                        <th>
+                            <button class="likebtn" style="margin-top:22px"><span title="Add Review" style="cursor: pointer; float:right; margin-top:6px">Review</span></button>
+                        </th>
+                        <div hidden>
+                            <input hidden type="text" name="MovieId" value="@movie.MovieId">
+                        </div>
+                        <div hidden>
+                            <input hidden type="text" name="Title" value="@movie.Title">
+                        </div>
+                    </form>
+
                 }
             </tr>
-        </thead>
-        <tbody>
-           @foreach (Movie movie in Model.Movies)
-            {
-                <tr>
-                    <th>
-                        @Html.DisplayName(movie.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayName(movie.Watched.ToString())
-                    </th>
-                    <th>
-                        @Html.DisplayName(movie.ReleaseDate.ToShortDateString())
-                    </th>
-                    <th>
-                        @Html.DisplayName(movie.Rating.ToString())
-                    </th>
-                   @if (Model.AccountViewModel.Account.Priority == Priority.User)
-                    {
-                       <form method="post" action="@Url.Action("ChangeWatched", "Movies")">
-                           <div hidden>
-                               <input type="text" name="MovieId" value="@movie.MovieId">
-                           </div>
-                           <th>
-                               <button class="likebtn" title="Add this movie to watched"><span style="cursor: pointer;">+</span></button>
-                           </th>
-                       </form>
-                       <form method="post" action="@Url.Action("SubmitRating", "Rating")">
-                           <th>
-                               <input type="text" name="Rating" placeholder="Put a rating here (number)">
-                               <button class="likebtn" style="margin-left:70px"><span title="submit rating" style="cursor: pointer;">Submit</span></button>
-                           </th>
-                           <div hidden>
-                               <input type="text" name="MovieId" value="@movie.MovieId">
-                           </div>
-                       </form>
-                       <form method="post" action="@Url.Action("NewReview", "Review")">
-                           <th>
-                               <button class="likebtn" style="margin-top:22px"><span title="Add Review" style="cursor: pointer; float:right; margin-top:6px">Review</span></button>
-                           </th>
-                           <div hidden>
-                               <input hidden type="text" name="MovieId" value="@movie.MovieId">
-                           </div>
-                           <div hidden>
-                               <input hidden type="text" name="Title" value="@movie.Title">
-                           </div>
-                       </form>
-     
-                    }
-               </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
  }
 <script>
     function changeVisibility() {
