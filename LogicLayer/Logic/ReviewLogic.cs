@@ -40,10 +40,12 @@ namespace LogicLayer.Logic
         }
         public List<double> GetRatingPercentages(List<Review> reviews)
         {
-            var RatingPercentages = from Review in reviews
-                                    group Review by Review.StarRating into ReviewGroup
-                                    orderby ReviewGroup.Key
-                                    select Math.Round(ReviewGroup.ToList().Count / (double)reviews.Count * 100.0,0);
+            var RatingPercentages = 
+
+            from Review in reviews
+            group Review by Review.StarRating into ReviewGroup
+            orderby ReviewGroup.Key
+            select Math.Round(ReviewGroup.ToList().Count / (double)reviews.Count * 100.0,0);
 
             List<double> Percentages = RatingPercentages.ToList();
             //If movie has no reviews for one or more ratingstars insert 0 value for missing ratingstar review 

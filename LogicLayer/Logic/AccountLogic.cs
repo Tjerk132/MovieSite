@@ -36,5 +36,9 @@ namespace LogicLayer.Logic
             account.passwordhash = PasswordHelper.HashPassword(account.Password);
             Repository.CreateNew(account);
         }
+        public List<Review> GetUserReviews(Account account)
+        {
+            return Repository.GetUserReviews(account);
+        }
     }
 }

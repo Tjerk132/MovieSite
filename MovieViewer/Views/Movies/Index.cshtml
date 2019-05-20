@@ -1,4 +1,4 @@
-﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+﻿@model MovieSite.Models.ViewModels.MovieViewModel
 @using Models
 @using Models.Enumeration
 @{
@@ -13,14 +13,14 @@
 
         <button class="likebtn" style="color:white">Filter</button>
     </form>
-    @if (Model.AccountViewModel.Account.Priority == Priority.Admin)
+    @if (Model.Account.Priority == Priority.Admin)
     {
         <form action="@Url.Action("AddMovie", "Movies")">
             <button class="likebtn" style="width:140px;">Add new movie</button>
         </form>
     }
 
-    <h3 class="ErrorMessage">@Model.AccountViewModel.Message</h3>
+    <h3 class="ErrorMessage">@Model.Message</h3>
 </div>
 
 @if (Model.Movies.Count > 0)
@@ -40,7 +40,7 @@
             <th width="12%">
                 Rating
             </th>
-            @if (Model.AccountViewModel.Account.Priority == Priority.User)
+            @if (Model.Account.Priority == Priority.User)
             {
                 <th width="12%">
                     Watched
@@ -70,7 +70,7 @@
                 <th>
                     @Html.DisplayName(movie.Rating.ToString())
                 </th>
-                @if (Model.AccountViewModel.Account.Priority == Priority.User)
+                @if (Model.Account.Priority == Priority.User)
                 {
                     <form method="post" action="@Url.Action("ChangeWatched", "Movies")">
                         <div hidden>

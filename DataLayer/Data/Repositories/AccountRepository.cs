@@ -18,11 +18,15 @@ namespace DataLayer.Data.ModelData
         }
         public Account LoginResult(Account account)
         {
-            return _context.LoginResult(account);
+            return _context.LoginUser(account);
         }
         public void CreateNew(Account account)
         {
             _context.CreateNew(account);
+        }
+        public List<Review> GetUserReviews(Account account)
+        {
+            return _context.GetUserReviews(account);
         }
     }
 }

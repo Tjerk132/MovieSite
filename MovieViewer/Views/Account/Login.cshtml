@@ -1,4 +1,4 @@
-﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+﻿@model MovieSite.Models.ViewModels.AccountViewModel
 @{
     ViewBag.Title = "Login";
 }
@@ -8,7 +8,7 @@
     @if (Model != null)
      {
         <div class="ErrorMessage">
-            @Model.AccountViewModel.Message
+            @Model.Message
         </div>
      }
     <form method="post" action="@Url.Action("LoginUser","Account")">

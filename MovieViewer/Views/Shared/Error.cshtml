@@ -1,0 +1,22 @@
+﻿@model MovieSite.Models.ViewModels.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+<div style="padding:5% 5%">
+
+    <h1 class="text-danger">Error @Model.StatusCode</h1>
+    <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+    @if (Model.ShowRequestId)
+     {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+        <h3>
+            @Model.StatusCodeTitle
+        </h3>
+        <h4>
+            @Model.StatusCodeInfo
+        </h4>
+     }
+</div>

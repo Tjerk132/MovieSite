@@ -15,7 +15,7 @@ namespace DataLayer.Data
     public class AccountContext : IAccountContext
     {    
         ConnectionString conn = new ConnectionString();
-        public Account LoginResult(Account account)
+        public Account LoginUser(Account account)
         {
             using (conn.connectionstring)
             {
@@ -66,6 +66,38 @@ namespace DataLayer.Data
                 });
                 cmd.ExecuteNonQuery();
             }
+        }
+        public List<Review> GetUserReviews(Account account)
+        {
+            List<Review> reviews = new List<Review>();
+            using (conn.connectionstring)
+            {
+                conn.connectionstring.Open();
+                SqlCommand cmd = new SqlCommand("GetUserReviews")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn.connectionstring
+                };
+                cmd.Parameters.AddWithValue("@Name", account.Name);
+                
+                DataTable dtResult = new DataTable();
+                dtResult.Load(cmd.ExecuteReader());
+                foreach (DataRow dr in dtResult.Rows)
+                {
+                    Review review = new Review();
+
+                    review.Title = dr[0].ToString();
+
+                    DateTime.TryParse(dr[1].ToString(), out DateTime ReviewDate);
+                    review.Date = ReviewDate;
+
+                    int.TryParse(dr[2].ToString(), out int StarRating);
+                    review.StarRating = StarRating;
+
+                    reviews.Add(review);
+                }
+            }
+            return reviews;
         }
     }
 }

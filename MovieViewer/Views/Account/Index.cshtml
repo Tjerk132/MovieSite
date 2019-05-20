@@ -1,4 +1,4 @@
-﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+﻿@model MovieSite.Models.ViewModels.AccountViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,7 +9,7 @@
 
     <h5 style="margin-left:20px">What do you want to do?</h5>
     <div class="AccountIndex">
-        @if (Model.AccountViewModel == null)
+        @if (Model.Account == null)
         {
             <form action="@Url.Action("Login", "Account")">
                 <div hidden>
@@ -24,7 +24,7 @@
                 <button class="likebtn">Create New Account</button>
             </form>
         }
-        @if (Model.AccountViewModel != null)
+        @if (Model.Account != null)
         {
             <form action="@Url.Action("Details","Account")">
                 <button class="likebtn">Details</button>

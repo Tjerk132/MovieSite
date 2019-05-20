@@ -9,8 +9,9 @@ namespace Interfaces.Interfaces
 {
     public interface IAccountContext
     {
-        Account LoginResult(Account Account);
+        Account LoginUser(Account Account);
         void CreateNew(Account Account);
+        List<Review> GetUserReviews(Account account);
     }
 
 }

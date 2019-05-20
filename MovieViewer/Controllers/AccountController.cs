@@ -14,6 +14,7 @@ using Interfaces.Interfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Routing;
 using LogicLayer;
+using MovieViewer;
 
 namespace MovieSite.Controllers
 {
@@ -27,14 +28,10 @@ namespace MovieSite.Controllers
 
         public IActionResult Index()
         {
-            SharedIndexViewModel viewModel = new SharedIndexViewModel();
-
+            AccountViewModel viewModel = new AccountViewModel();
             if (HttpContext.Session.GetObject<Account>("User") != null)
             {
-                viewModel.AccountViewModel = new AccountViewModel()
-                {
-                    Account = HttpContext.Session.GetObject<Account>("User")
-                };
+                viewModel.Account = HttpContext.Session.GetObject<Account>("User");            
             }
             return View(viewModel);
         }
@@ -48,13 +45,12 @@ namespace MovieSite.Controllers
         }
         public IActionResult Details()
         {
-            SharedIndexViewModel viewModel = new SharedIndexViewModel
+            var AccountLogic = new AccountLogic(_context);
+            AccountDetailsViewModel viewModel = new AccountDetailsViewModel
             {
-                AccountViewModel = new AccountViewModel()
-                {
-                    Account = HttpContext.Session.GetObject<Account>("User")
-                }
+                Account = HttpContext.Session.GetObject<Account>("User"),
             };
+            viewModel.Reviews = AccountLogic.GetUserReviews(viewModel.Account);
             return View(viewModel);
         }
         public IActionResult LogoutUser()
@@ -67,17 +63,15 @@ namespace MovieSite.Controllers
         {
             var AccountLogic = new AccountLogic(_context);
             account = AccountLogic.LoginUser(account);
-            SharedIndexViewModel viewModel = new SharedIndexViewModel
+
+            AccountViewModel viewmodel = new AccountViewModel()
             {
-                AccountViewModel = new AccountViewModel()
-                {
-                    Account = account
-                }
+                Account = account
             };
             if (account.Name == null)
             {
-                viewModel.AccountViewModel.Message = "Wrong account information";
-                return View("Login",viewModel);
+                viewmodel.Message = "Wrong account information";
+                return View("Login", viewmodel);
             }
             else
             {

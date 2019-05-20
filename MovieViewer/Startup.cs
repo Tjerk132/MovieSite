@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Diagnostics;
+using System.IO;
 
 namespace MovieViewer
 {
@@ -43,6 +45,7 @@ namespace MovieViewer
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+           
             services.AddScoped<IAccountContext, AccountContext>();
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();
@@ -52,21 +55,13 @@ namespace MovieViewer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Shared/Error");
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
 
-            app.UseSession();
-            app.UseMvc();
-            app.UseHttpsRedirection();
+            app.UseStatusCodePagesWithReExecute("/Error/Error", "?statusCode={0}");
+
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+
+            app.UseSession();        
 
             app.UseMvc(routes =>
             {

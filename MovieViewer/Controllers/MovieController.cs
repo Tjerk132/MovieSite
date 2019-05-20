@@ -24,30 +24,17 @@ namespace MovieSite.Controllers
         {
             if (HttpContext.Session.GetObject<Account>("User") != null)
             {
-                SharedIndexViewModel viewModel = new SharedIndexViewModel
+                var MovieLogic = new MoviesLogic(_context);
+
+                MovieViewModel viewModel = new MovieViewModel
                 {
-                    AccountViewModel = new AccountViewModel
-                    {
-                        Account = HttpContext.Session.GetObject<Account>("User")
-                    },
-                    Movies = new List<Movie>()
+                    Account = HttpContext.Session.GetObject<Account>("User"),
+                    Movies = MovieLogic.GetMovies()
                 };
 
-                var MovieLogic = new MoviesLogic(_context);
-                foreach (var Movie in MovieLogic.GetMovies())
-                {
-                    viewModel.Movies.Add(new Movie
-                    (
-                        Movie.MovieId,
-                        Movie.Title,
-                        Movie.ReleaseDate,
-                        Movie.Watched,
-                        Movie.Rating
-                    ));
-                }
                 if (HttpContext.Session.GetString("Message") != null)
                 {
-                    viewModel.AccountViewModel.Message = HttpContext.Session.GetString("Message").ToString();
+                    viewModel.Message = HttpContext.Session.GetString("Message").ToString();
                     HttpContext.Session.SetString("Message", "");
                 }
                 return View(viewModel);
@@ -79,24 +66,19 @@ namespace MovieSite.Controllers
         [HttpPost]
         public ActionResult FilterMovies(string Title)
         {
-            SharedIndexViewModel SharedviewModel = new SharedIndexViewModel
-            {
-                Movies = new List<Movie>(),
-                AccountViewModel = new AccountViewModel()
-                {
-                    Account = HttpContext.Session.GetObject<Account>("User")
-                }
-            };
             var MovieLogic = new MoviesLogic(_context);
             List<Movie> movies = MovieLogic.GetMovies();
 
-            SharedviewModel.Movies = MovieLogic.Filtermovie(movies, Title);
-
-            if (SharedviewModel.Movies.Count == 0)
+            MovieViewModel viewModel = new MovieViewModel
             {
-                SharedviewModel.AccountViewModel.Message = "No movies found";
+                 Account = HttpContext.Session.GetObject<Account>("User"),
+                 Movies = MovieLogic.Filtermovie(movies, Title)
+            };
+            if (viewModel.Movies.Count == 0)
+            {
+                viewModel.Message = "No movies found";
             }
-            return View("Index", SharedviewModel);
+            return View("Index", viewModel);
         }
     }
 }

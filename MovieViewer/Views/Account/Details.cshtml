@@ -1,4 +1,4 @@
-﻿@model MovieSite.Models.ViewModels.SharedIndexViewModel
+﻿@model MovieSite.Models.ViewModels.AccountDetailsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -6,13 +6,45 @@
 <h3>Details Account</h3>
 <div style="padding:10px 30px">
     <h4>
-        Username : @Html.DisplayName(Model.AccountViewModel.Account.Name)
+        Username : @Html.DisplayName(Model.Account.Name)
     </h4>
     <h4>
-        Priority : @Html.DisplayName(Model.AccountViewModel.Account.Priority.ToString())
+        Priority : @Html.DisplayName(Model.Account.Priority.ToString())
     </h4>
     <h4>
-        Movies watched : @Html.DisplayName(Model.AccountViewModel.Account.Watched.ToString())
+        Movies watched : @Html.DisplayName(Model.Account.Watched.ToString())
     </h4>
+    <h3>My Reviews</h3>
+    <table class="Table" style="width:300px; float:left">
+        <thead>
+            <tr>
+                <th width="50px">
+                    Title
+                </th>
+                <th width="50px">
+                    Date
+                </th>
+                <th width="50px">
+                    StarRating
+                </th>
+            </tr>
+        </thead>
+        @foreach (Review review in Model.Reviews)
+         {
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayName(review.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayName(review.Date.ToShortDateString())
+                    </th>
+                    <th>
+                        @Html.DisplayName(review.StarRating.ToString())
+                    </th>
+                </tr>
+            </tbody>
+         }
+    </table>
 </div>
 

@@ -12,6 +12,7 @@ namespace Helpers
         public static string HashPassword(string password)
         {
             var cryptoProvider = new RNGCryptoServiceProvider();
+                          //24 element byte array
             byte[] salt = new byte[24];
             cryptoProvider.GetBytes(salt);
 
