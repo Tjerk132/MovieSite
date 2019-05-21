@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieSite.Models.ViewModels;
+using MovieSite.Models.ViewModels.ErrorViewModels;
 using LogicLayer.Logic;
+using Helpers;
 
 namespace MovieViewer.Controllers
 {
@@ -17,13 +18,12 @@ namespace MovieViewer.Controllers
         {
             if (statusCode.HasValue)
             {
-                ErrorLogic logic = new ErrorLogic();
                 ErrorViewModel viewModel = new ErrorViewModel
                 {
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
                     StatusCode = statusCode,
-                    StatusCodeTitle = logic.GetStatusCodeTitle(statusCode),
-                    StatusCodeInfo = logic.GetStatusCodeInfo(statusCode)
+                    StatusCodeTitle = StatusCodeBuilder.GetStatusCodeTitle(statusCode),
+                    StatusCodeInfo = StatusCodeBuilder.GetStatusCodeInfo(statusCode)
                 };
                 return View(viewModel);
             }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using MovieSite;
-using MovieSite.Models.ViewModels;
+using MovieSite.Models.ViewModels.MovieViewModels;
 using Interfaces.Interfaces;
 
 namespace MovieSite.Controllers
@@ -26,7 +26,7 @@ namespace MovieSite.Controllers
             {
                 var MovieLogic = new MoviesLogic(_context);
 
-                MovieViewModel viewModel = new MovieViewModel
+                MovieIndexViewModel viewModel = new MovieIndexViewModel
                 {
                     Account = HttpContext.Session.GetObject<Account>("User"),
                     Movies = MovieLogic.GetMovies()
@@ -69,7 +69,7 @@ namespace MovieSite.Controllers
             var MovieLogic = new MoviesLogic(_context);
             List<Movie> movies = MovieLogic.GetMovies();
 
-            MovieViewModel viewModel = new MovieViewModel
+            MovieIndexViewModel viewModel = new MovieIndexViewModel
             {
                  Account = HttpContext.Session.GetObject<Account>("User"),
                  Movies = MovieLogic.Filtermovie(movies, Title)

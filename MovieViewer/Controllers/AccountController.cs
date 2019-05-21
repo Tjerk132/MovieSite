@@ -9,7 +9,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using MovieSite.Models.ViewModels;
+using MovieSite.Models.ViewModels.AccountViewModels;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Routing;
@@ -28,7 +28,7 @@ namespace MovieSite.Controllers
 
         public IActionResult Index()
         {
-            AccountViewModel viewModel = new AccountViewModel();
+            AccountIndexViewModel viewModel = new AccountIndexViewModel();
             if (HttpContext.Session.GetObject<Account>("User") != null)
             {
                 viewModel.Account = HttpContext.Session.GetObject<Account>("User");            
@@ -46,7 +46,7 @@ namespace MovieSite.Controllers
         public IActionResult Details()
         {
             var AccountLogic = new AccountLogic(_context);
-            AccountDetailsViewModel viewModel = new AccountDetailsViewModel
+            DetailsViewModel viewModel = new DetailsViewModel
             {
                 Account = HttpContext.Session.GetObject<Account>("User"),
             };
@@ -64,7 +64,7 @@ namespace MovieSite.Controllers
             var AccountLogic = new AccountLogic(_context);
             account = AccountLogic.LoginUser(account);
 
-            AccountViewModel viewmodel = new AccountViewModel()
+            LoginViewModel viewmodel = new LoginViewModel()
             {
                 Account = account
             };

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models;
 
-namespace MovieSite.Models.ViewModels
+namespace MovieSite.Models.ViewModels.ReviewViewModels
 {
     public class ReviewViewModel
     {

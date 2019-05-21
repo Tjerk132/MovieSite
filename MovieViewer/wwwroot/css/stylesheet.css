@@ -12,17 +12,14 @@ input[type=text], input[type=password] {
     margin: 0px 2px;
     display: inline-block;
     border: 1.2px solid groove;
-    box-sizing: border-box;
     box-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.4);
 }
 
 .NoItems {
     position:absolute;
     top: 70%;
-    left: 35%
-    
+    left: 35%  
 }
-
 
 /* Set a style for all buttons */
 button {
@@ -128,8 +125,9 @@ button {
 }
 
 .footer {
-    margin-left:39%;
-    padding:10px 0px
+    float:right;
+    margin-top:0%
+    /*margin-bottom:20%*/
 }
 .EnterInfoViewDivs {
     padding:10px;

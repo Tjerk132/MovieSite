@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.Logic
 {
-    public class ErrorLogic
+    public class StatusCodeBuilder
     {
-        public string GetStatusCodeTitle(int? StatusCode)
+        public static string GetStatusCodeTitle(int? StatusCode)
         {
             switch(StatusCode)
             {
@@ -32,7 +32,7 @@ namespace LogicLayer.Logic
                     return "Something unexpected happened";
             }
         }
-        public string GetStatusCodeInfo(int? StatusCode)
+        public static string GetStatusCodeInfo(int? StatusCode)
         {
             switch (StatusCode)
             {
@@ -53,7 +53,7 @@ namespace LogicLayer.Logic
                 case 504:
                     return "The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.";
                 default:
-                    return "";
+                    return "We're not sure what causes the problem";
             }
         }
     }

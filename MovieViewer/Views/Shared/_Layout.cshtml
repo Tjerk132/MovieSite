@@ -11,14 +11,14 @@
             @if (Context.Session.GetObject<Account>("User") != null)
             {
                 Account Account = Context.Session.GetObject<Account>("User");
-                <a class="Username" href="@Url.Action("Index", "Account")"> @Account.Name </a>
-            }
+                <a class="Username" href="@Url.Action("Details", "Account")"> @Account.Name </a>
+             }
         </li>
     </ul>
 </div>  
 
 @RenderBody()
-<div class="footer">
+@*<div class="footer">
     Today is @DateTime.Now.DayOfWeek
-</div>
+</div>*@
 

@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MovieSite.Models.ViewModels
+namespace MovieSite.Models.ViewModels.AccountViewModels
 {
-    public class MovieViewModel
+    public class DetailsViewModel
     {
         public Account Account { get; set; }
-        public string Message { get; set; }
-        public List<Movie> Movies{ get; set; }
-
+        public List<Review> Reviews { get; set; }
     }
-
 }
