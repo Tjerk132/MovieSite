@@ -14,22 +14,21 @@ namespace MovieSite.Controllers
 {
     public class ReviewController : Controller
     {
-        private readonly IReviewContext _context;
-        public ReviewController(IReviewContext reviewcontext)
+        private readonly ReviewLogic _context;
+        public ReviewController(ReviewLogic reviewlogic)
         {
-            _context = reviewcontext;
+            _context = reviewlogic;
         }
         public IActionResult NewReview(int MovieId, string Title, string Message)
         {
-            var ReviewLogic = new ReviewLogic(_context);
-            List<Review> reviews = ReviewLogic.GetReviews(MovieId);
+            List<Review> reviews = _context.GetReviews(MovieId);
             ReviewViewModel reviewViewModel = new ReviewViewModel
             {
                 Reviews = reviews,
                 MovieId = MovieId,
                 MovieTitle = Title,
-                AverageRating = ReviewLogic.AverageRating(reviews),
-                RatingPercentages = ReviewLogic.GetRatingPercentages(reviews),
+                AverageRating = _context.AverageRating(reviews),
+                RatingPercentages = _context.GetRatingPercentages(reviews),
                 Message = Message
             };  
             return View(reviewViewModel);
@@ -47,8 +46,7 @@ namespace MovieSite.Controllers
                     Autor = account.Name,
                     StarRating = review.StarRating
                 };
-                var Reviewlogic = new ReviewLogic(_context);
-                Reviewlogic.AddReview(Review, MovieId);
+                _context.AddReview(Review, MovieId);
                 return RedirectToAction("NewReview", new { MovieId, Title });
             }
             else

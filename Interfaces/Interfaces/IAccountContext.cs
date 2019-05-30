@@ -13,5 +13,4 @@ namespace Interfaces.Interfaces
         void CreateNew(Account Account);
         List<Review> GetUserReviews(Account account);
     }
-
 }

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Diagnostics;
 using System.IO;
+using LogicLayer.Logic;
 
 namespace MovieViewer
 {
@@ -44,12 +45,16 @@ namespace MovieViewer
             services.AddSession();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
            
             services.AddScoped<IAccountContext, AccountContext>();
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();
             services.AddScoped<IRatingContext, RatingContext>();
+
+            services.AddScoped<AccountLogic>();
+            services.AddScoped<MoviesLogic>();
+            services.AddScoped<ReviewLogic>();
+            services.AddScoped<RatingLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

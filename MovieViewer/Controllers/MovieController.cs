@@ -15,8 +15,8 @@ namespace MovieSite.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly IMoviesContext _context;
-        public MoviesController(IMoviesContext moviescontext)
+        private readonly MoviesLogic _context;
+        public MoviesController(MoviesLogic moviescontext)
         {
             _context = moviescontext;
         }
@@ -24,19 +24,11 @@ namespace MovieSite.Controllers
         {
             if (HttpContext.Session.GetObject<Account>("User") != null)
             {
-                var MovieLogic = new MoviesLogic(_context);
-
                 MovieIndexViewModel viewModel = new MovieIndexViewModel
                 {
                     Account = HttpContext.Session.GetObject<Account>("User"),
-                    Movies = MovieLogic.GetMovies()
+                    Movies = _context.GetMovies()
                 };
-
-                if (HttpContext.Session.GetString("Message") != null)
-                {
-                    viewModel.Message = HttpContext.Session.GetString("Message").ToString();
-                    HttpContext.Session.SetString("Message", "");
-                }
                 return View(viewModel);
             }
             else
@@ -52,27 +44,24 @@ namespace MovieSite.Controllers
         [HttpPost]
         public ActionResult ChangeWatched(int MovieId)
         {
-            var MovieLogic = new MoviesLogic(_context);
-            MovieLogic.ChangeWatched(MovieId);
+            _context.ChangeWatched(MovieId);
             return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult AddMovie(string Title, DateTime ReleaseDate)
         {
-            var MovieLogic = new MoviesLogic(_context);
-            MovieLogic.AddMovie(Title, ReleaseDate);
+            _context.AddMovie(Title, ReleaseDate);
             return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult FilterMovies(string Title)
         {
-            var MovieLogic = new MoviesLogic(_context);
-            List<Movie> movies = MovieLogic.GetMovies();
+            List<Movie> movies = _context.GetMovies();
 
             MovieIndexViewModel viewModel = new MovieIndexViewModel
             {
                  Account = HttpContext.Session.GetObject<Account>("User"),
-                 Movies = MovieLogic.Filtermovie(movies, Title)
+                 Movies = _context.Filtermovie(movies, Title)
             };
             if (viewModel.Movies.Count == 0)
             {

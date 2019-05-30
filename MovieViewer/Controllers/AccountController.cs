@@ -20,8 +20,8 @@ namespace MovieSite.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountContext _context;
-        public AccountController(IAccountContext accountcontext)
+        private readonly AccountLogic _context;
+        public AccountController(AccountLogic accountcontext)
         {
             _context = accountcontext;
         }
@@ -45,12 +45,11 @@ namespace MovieSite.Controllers
         }
         public IActionResult Details()
         {
-            var AccountLogic = new AccountLogic(_context);
             DetailsViewModel viewModel = new DetailsViewModel
             {
                 Account = HttpContext.Session.GetObject<Account>("User"),
             };
-            viewModel.Reviews = AccountLogic.GetUserReviews(viewModel.Account);
+            viewModel.Reviews = _context.GetUserReviews(viewModel.Account);
             return View(viewModel);
         }
         public IActionResult LogoutUser()
@@ -61,8 +60,7 @@ namespace MovieSite.Controllers
         [HttpPost]
         public IActionResult LoginUser(Account account)
         {
-            var AccountLogic = new AccountLogic(_context);
-            account = AccountLogic.LoginUser(account);
+            account = _context.LoginUser(account);
 
             LoginViewModel viewmodel = new LoginViewModel()
             {
@@ -82,8 +80,7 @@ namespace MovieSite.Controllers
         [HttpPost]
         public IActionResult CreateNew(Account account)
         {
-            var AccountLogic = new AccountLogic(_context);
-            AccountLogic.CreateNew(account);
+            _context.CreateNew(account);
             HttpContext.Session.SetObject("User", account);
             return RedirectToAction("Index"/*, new RouteValueDictionary(account)*/);
         }

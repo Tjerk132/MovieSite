@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieViewer", "MovieViewer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{752A63A0-0170-4B23-8B0C-D06E4669BAE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSiteTestProject", "MovieSiteTestProject\MovieSiteTestProject.csproj", "{2E538EDD-3497-4DC7-8D0D-79961C71BFDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{752A63A0-0170-4B23-8B0C-D06E4669BAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{752A63A0-0170-4B23-8B0C-D06E4669BAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{752A63A0-0170-4B23-8B0C-D06E4669BAE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E538EDD-3497-4DC7-8D0D-79961C71BFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E538EDD-3497-4DC7-8D0D-79961C71BFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E538EDD-3497-4DC7-8D0D-79961C71BFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E538EDD-3497-4DC7-8D0D-79961C71BFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
