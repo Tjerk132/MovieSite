@@ -1,5 +1,6 @@
 ﻿using Interfaces.Interfaces;
 using LogicLayer.Logic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Moq;
@@ -10,11 +11,15 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-
-namespace MovieSiteTestProject
+namespace MovieSiteTestProject.ControllerTests
 {
-    public class UnitTestsMovies
+    public class MoviesControllerTests
     {
+        private Mock<IMoviesContext> mock;
+        public MoviesControllerTests()
+        {
+            mock = new Mock<IMoviesContext>();
+        }
         [Fact]
         public void TestGetMovies()
         {
@@ -25,24 +30,21 @@ namespace MovieSiteTestProject
                 new Movie(2,"Shrek 2",DateTime.Now,2000,87),
                 new Movie(3,"Shrek 3",DateTime.Now,2000,57),
             };
-
             var Account = new Account
             {
                 Name = "Simon",
                 Password = "123"
             };
 
-            var  mockhttpcontext = new Mock<ControllerContext>();
-           
-            MockHttpSession mocksession = new MockHttpSession();
-            mockhttpcontext.Setup(x => x.HttpContext.Session).Returns(mocksession);
-
-            Mock<IMoviesContext> mock = new Mock<IMoviesContext>();
             mock.Setup(x => x.GetMovies()).Returns(movies);
             MoviesLogic MoviesLogic = new MoviesLogic(mock.Object);
 
+
+            var controllercontext = new Mock<HttpContext>();
+            controllercontext.Setup(x => x.Session.GetObject<Account>("User")).Returns(Account);
+
             MoviesController controller = new MoviesController(MoviesLogic);
-            controller.ControllerContext = mockhttpcontext.Object;
+            controller.ControllerContext.HttpContext = controllercontext.Object;
 
             //Act
             ViewResult result = controller.Index() as ViewResult;

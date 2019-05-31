@@ -9,9 +9,9 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace MovieSiteTestProject
+namespace MovieSiteTestProject.ControllerTests
 {
-    public class UnitTestsReviews
+    public class ReviewControllerTests
     {
         [Fact]
         public void TestGetReviews()
@@ -19,22 +19,8 @@ namespace MovieSiteTestProject
             //Arrange
             List<Review> reviews = new List<Review>
             {
-                new Review
-                {
-                    Autor = "Simon",
-                    Date = DateTime.Now,
-                    Text = "Great Movie",
-                    Title = "Shrek",
-                    StarRating = 4
-                },
-                new Review
-                {
-                    Autor = "Henk",
-                    Date = DateTime.Now,
-                    Text = "Excellent",
-                    Title = "Shrek",
-                    StarRating = 5
-                },
+                new Review(DateTime.Now, "Great Movie", "Simon", 4),
+                new Review(DateTime.Now, "Excellent", "Henk", 5)
             };
 
             Mock<IReviewContext> mock = new Mock<IReviewContext>();
@@ -53,26 +39,27 @@ namespace MovieSiteTestProject
         public void TestAddReview()
         {
             //Arrange
-            Review review = new Review {
- 
-                Autor = "Simon",
-                Date = DateTime.Now,
-                Text = "",
-                Title = "Shrek",
-                StarRating = 3
-            };          
+            List<Review> reviews = new List<Review>
+            {
+                new Review(DateTime.Now,"Great Movie", "Simon", 4),
+                new Review(DateTime.Now, "Excellent","Henk", 5)
+            };
+
+            Review review = new Review(DateTime.Now, "", "Sebastian", 4);
 
             Mock<IReviewContext> mock = new Mock<IReviewContext>();
-            mock.Setup(x => x.Add(review, 1));
+            mock.Setup(x => x.GetReviews(1)).Returns(reviews);
             ReviewLogic logic = new ReviewLogic(mock.Object);
 
             ReviewController controller = new ReviewController(logic);
 
             //Act
-            ViewResult result = controller.AddReview(1, review, "Shrek") as ViewResult;
-            var viewmodel = result.Model as string;
+            var result = controller.AddReview(1, "Shrek", review.Date, review.Text, review.StarRating) 
+                as ViewResult;
+
+            var viewmodel = result.Model as ReviewViewModel;
             //Assert
-            Assert.Equal("Please insert all fields", viewmodel);
+            Assert.Equal("Please insert all fields", viewmodel.Message);
         }
     }
 }

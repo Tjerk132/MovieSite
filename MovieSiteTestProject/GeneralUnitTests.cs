@@ -22,7 +22,7 @@ namespace MovieSiteTestProject
             using (var Client = new HttpClient())
             {
                 //Arrange
-                var request = "https://localhost:44324/";
+                var request = "https://localhost:44328/";
                 //Act
                 var response = await Client.GetAsync(request);
                 //Assert             

@@ -84,15 +84,16 @@ namespace DataLayer.Data
                 dtResult.Load(cmd.ExecuteReader());
                 foreach (DataRow dr in dtResult.Rows)
                 {
-                    Review review = new Review();
-
-                    review.Title = dr[0].ToString();
-
                     DateTime.TryParse(dr[1].ToString(), out DateTime ReviewDate);
-                    review.Date = ReviewDate;
-
                     int.TryParse(dr[2].ToString(), out int StarRating);
-                    review.StarRating = StarRating;
+
+                    Review review = new Review
+                    (
+                        ReviewDate,
+                        dr[2].ToString(),
+                        dr[3].ToString(),
+                        StarRating
+                    );
 
                     reviews.Add(review);
                 }

@@ -14,5 +14,12 @@ namespace Models
         public string Text { get; set; }
         public string Autor { get; set; }
         public int StarRating { get; set; }
+        public Review(DateTime date, string text, string autor, int starrating)
+        {
+            Date = date;
+            Text = text;
+            Autor = autor;
+            StarRating = starrating;
+        }
     }
 }
