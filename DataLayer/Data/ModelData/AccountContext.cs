@@ -90,10 +90,11 @@ namespace DataLayer.Data
                     Review review = new Review
                     (
                         ReviewDate,
-                        dr[2].ToString(),
-                        dr[3].ToString(),
+                        "",
+                        "",
                         StarRating
                     );
+                    review.Title = dr[0].ToString();
 
                     reviews.Add(review);
                 }
