@@ -20,10 +20,12 @@ namespace MovieSite.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AccountLogic _context;
-        public AccountController(AccountLogic accountcontext)
+        private readonly IAccountContext _context;
+        private AccountLogic Logic;
+        public AccountController(IAccountContext accountcontext)
         {
             _context = accountcontext;
+            Logic = new AccountLogic(_context);
         }
 
         public IActionResult Index()
@@ -49,7 +51,7 @@ namespace MovieSite.Controllers
             {
                 Account = HttpContext.Session.GetObject<Account>("User"),
             };
-            viewModel.Reviews = _context.GetUserReviews(viewModel.Account);
+            viewModel.Reviews = Logic.GetUserReviews(viewModel.Account);
             return View(viewModel);
         }
         public IActionResult LogoutUser()
@@ -60,7 +62,7 @@ namespace MovieSite.Controllers
         [HttpPost]
         public IActionResult LoginUser(Account account)
         {
-            account = _context.LoginUser(account);
+            account = Logic.LoginUser(account);
 
             LoginViewModel viewmodel = new LoginViewModel()
             {

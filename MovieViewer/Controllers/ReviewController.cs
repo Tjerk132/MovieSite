@@ -19,23 +19,23 @@ namespace MovieSite.Controllers
         {
             _context = reviewlogic;
         }
-        public IActionResult NewReview(int MovieId, string Title, string Message)
+        public IActionResult NewReview(int MovieId, string Title)
         {
             List<Review> reviews = _context.GetReviews(MovieId);
-            ReviewViewModel reviewViewModel = new ReviewViewModel
+            ReviewViewModel ViewModel = new ReviewViewModel
             {
                 Reviews = reviews,
                 MovieId = MovieId,
                 MovieTitle = Title,
                 AverageRating = _context.AverageRating(reviews),
-                RatingPercentages = _context.GetRatingPercentages(reviews),
-                Message = Message
+                RatingPercentages = _context.GetRatingPercentages(reviews)
             };  
-            return View(reviewViewModel);
+            return View(ViewModel);
         }
         [HttpPost]
         public IActionResult AddReview(int MovieId, Review review, string Title)
         {
+            string Message = "";
             if (review.StarRating > 0 && !string.IsNullOrWhiteSpace(review.Text))
             {
                 Account account = HttpContext.Session.GetObject<Account>("User");
@@ -47,13 +47,22 @@ namespace MovieSite.Controllers
                     StarRating = review.StarRating
                 };
                 _context.AddReview(Review, MovieId);
-                return RedirectToAction("NewReview", new { MovieId, Title });
             }
             else
             {
-                string Message = "Please insert all fields";
-                return RedirectToAction("NewReview", new { Message, MovieId, Title });
+                Message = "Please insert all fields";
             }
+            List<Review> reviews = _context.GetReviews(MovieId);
+            ReviewViewModel ViewModel = new ReviewViewModel
+            {
+                Reviews = reviews,
+                MovieId = MovieId,
+                MovieTitle = Title,
+                AverageRating = _context.AverageRating(reviews),
+                RatingPercentages = _context.GetRatingPercentages(reviews),
+                Message = Message
+            };
+            return View("NewReview", ViewModel);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace LogicLayer.Logic
             Movie movie = new Movie(0, Title, ReleaseDate, 0, 0);
             Repository.Add(movie);
         }
-        public List<Movie>GetMovies()
+        public virtual List<Movie>GetMovies()
         {
             return Repository.GetMovies();
         }

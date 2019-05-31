@@ -43,6 +43,7 @@ namespace MovieViewer
                     .AddSessionStateTempDataProvider();
 
             services.AddSession();
+            services.AddMvc();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
            
@@ -66,7 +67,9 @@ namespace MovieViewer
 
             app.UseStaticFiles();
 
-            app.UseSession();        
+            app.UseSession();
+
+            app.UseMvc();
 
             app.UseMvc(routes =>
             {

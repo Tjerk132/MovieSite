@@ -17,7 +17,7 @@ namespace MovieSiteTestProject
     public class GeneralUnitTests
     {
         [Fact]
-        public async Task TestClientAsync()
+        public async Task TestClient()
         {
             using (var Client = new HttpClient())
             {
