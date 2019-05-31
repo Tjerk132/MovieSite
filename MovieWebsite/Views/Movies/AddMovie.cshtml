@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "AddMovie";
+}
+
+<h3>Add a new Movie</h3>
+<link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
+<div id="id01" style="background-color:#f1f1f1; width: 30%; padding: 5px 5px; margin-left:30%">
+    <form method="post" action="@Url.Action("AddMovie","Movies")">
+
+        <label><b>Title</b></label>
+        <input type="text" name="Title" placeholder="Enter Title" required>
+        <div>
+            <label><b>Release Date</b></label>
+            <input type="date" name="ReleaseDate" placeholder="Enter Releasedate" style="width:100%" required>
+        </div>
+        <div>
+            <button class="likebtn" style="margin-left: 30%">Add Movie</button>
+        </div>
+
+    </form>
+</div>

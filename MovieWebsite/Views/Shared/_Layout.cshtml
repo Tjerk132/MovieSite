@@ -1,0 +1,24 @@
+﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/stylesheet.css" />
+<title>@ViewBag.Title - MovieSearcher</title>
+
+<div class="nav-bar">
+    <ul>
+        <li><a href="@Url.Action("Index", "Movies")" style="font-size:24px">Movies</a>
+        <li><a href="@Url.Action("Index", "Account")" style="font-size:24px">Account</a>
+        <li style="float:right;">
+            @if (Context.Session.GetObject<Account>("User") != null)
+            {
+                Account Account = Context.Session.GetObject<Account>("User");
+                <a class="Username" href="@Url.Action("Details", "Account")"> @Account.Name </a>
+             }
+        </li>
+    </ul>
+</div>  
+
+@RenderBody()
+@*<div class="footer">
+    Today is @DateTime.Now.DayOfWeek
+</div>*@
+

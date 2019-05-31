@@ -1,0 +1,282 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto; /* Center website */
+    max-width: 100%; /* Max width */
+    padding: 0px;
+}
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    padding: 12px 20px;
+    margin: 0px 2px;
+    display: inline-block;
+    border: 1.2px solid groove;
+    box-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.4);
+}
+
+.NoItems {
+    position:absolute;
+    top: 70%;
+    left: 35%  
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    padding: 10px 18px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9);
+    border-radius: 12px;
+    width: auto;
+}
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    background-color: #f44336;
+    margin-left: 50%;
+    margin-top:-47px
+}
+
+.likebtn {
+    background-color: forestgreen;
+}
+.nav-bar {
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid #aaa;
+}
+
+.nav-bar ul {
+    list-style: none;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    float:left;
+    background-color: #333c46 !important;
+}
+
+.nav-bar li {
+    float: left;
+    background-color:#f4f4f4;
+    color:white;
+}
+
+    .nav-bar li a {
+        
+        display: block;
+        padding: 8px 15px;
+        text-decoration: none;
+        font-weight: bold;
+        color: #069;
+        border-right: 1px solid #ccc;
+    }
+
+    .nav-bar li:first-child a {
+        border-left: 1px solid #ccc;
+    }
+
+    .nav-bar li a:hover {
+        color: #c00;
+        background-color: #f6f6f6;
+    }
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {
+        float: none;
+    }
+    span.psw {
+        display: block;
+        float: none;
+    }
+}
+
+.reviewtext {
+    width: 88%;
+    height: 50%;
+    min-height: 50%;
+    min-width: 80%;
+    max-height: 60%;
+    max-width: 95%;
+    cursor: pointer;
+}
+.AccountIndex {
+    width:170px; 
+    height:auto; 
+    text-align:center; 
+    margin-left:35px;
+}
+.RatingAverages {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.35);
+    width: 320px;
+    height: 350px;
+    font-size: 16px;
+    background-color: #fff;
+    float: right;
+    margin: 60px 16% 16px 8px;
+}
+
+.footer {
+    float:right;
+    margin-top:0%
+    /*margin-bottom:20%*/
+}
+.EnterInfoViewDivs {
+    padding:10px;
+}
+
+.EnterInfoView {
+    text-align:center;
+    background-color: #f1f1f1;
+    width: 320px;
+    padding:5px 25px;
+    margin:auto;
+    margin-top:12%;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.35);
+}
+.Table {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.34);
+    font-size: 14.5px;
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 50px;
+    border-right: 1px solid #dbdbdb;
+    border-left: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    background-color: #fff;
+    margin: auto;
+}
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 36px;
+    margin-left:10px;   
+}
+
+    .rating label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        cursor: pointer;
+    }
+
+        .rating label:last-child {
+            position: static;
+        }
+
+        .rating label:nth-child(1) {
+            z-index: 5;
+        }
+
+        .rating label:nth-child(2) {
+            z-index: 4;
+        }
+
+        .rating label:nth-child(3) {
+            z-index: 3;
+        }
+
+        .rating label:nth-child(4) {
+            z-index: 2;
+        }
+
+        .rating label:nth-child(5) {
+            z-index: 1;
+        }
+
+        .rating label input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .rating label .icon {
+            float: left;
+            color: transparent;
+        }
+
+        .rating label:last-child .icon {
+            color: #000;
+        }
+
+    .rating:not(:hover) label input:checked ~ .icon,
+    .rating:hover label:hover input ~ .icon {
+        color: #09f;
+    }
+
+    .rating label input:focus:not(:checked) ~ .icon:last-child {
+        color: #000;
+        text-shadow: 0 0 5px #09f;
+    }
+
+.ErrorMessage{
+    color:red;
+    font-size:16px;
+}
+.Username {
+    font-size: 24px;
+    text-align: right;
+    color: white;
+    margin-right: 10px;
+    float:right;
+}
+.ReviewContainer {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.35);
+    width: 480px;
+    height: 350px;
+    font-size: 16px;
+    background-color: #fff;
+    margin: 60px 8px 16px 16%;
+    float: left;
+    padding:2px 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+.checked {
+    color: orange;
+}
+
+/* Three column layout */
+.side {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+}
+
+.middle {
+    margin-top: 10px;
+    float: left;
+    width: 70%
+}
+
+.progressbar {
+    height: 20px;
+    background-color: #f7cb09;
+}
+   
+

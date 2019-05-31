@@ -1,0 +1,113 @@
+﻿@model MovieSite.Models.ViewModels.ReviewViewModels.ReviewViewModel
+@using Models;
+@{
+    ViewData["Title"] = "NewReview";
+}
+<form method="post" class="ReviewContainer" action="@Url.Action("AddReview", "Review")">
+
+    <h3>Add a review for @Model.MovieTitle</h3>
+    @if (Model.Message != null)
+     {
+        <div class="ErrorMessage">@Model.Message</div>
+     }
+
+    <div hidden>
+        <input type="text" name="MovieId" value="@Model.MovieId">
+    </div>
+    <div hidden>
+        <input type="text" readonly="readonly" name="Title" value="@Model.MovieTitle">
+    </div>
+    <div hidden>
+        <input type="text" readonly="readonly" name="Date" value="@DateTime.Now.Date.ToShortDateString()">
+    </div>
+
+    <div class="control">
+        <textarea class="reviewtext" name="Text" placeholder="Enter your review here"></textarea>
+    </div>
+    <div class="rating">
+        @for (int i = 1; i < 6; i++)
+         {
+            <label>
+                <input type="radio" name="StarRating" value="@i" />
+                @for (int j = 0; j < i; j++)
+                 {
+                    <span class="icon">★</span>
+                 }
+            </label>
+         }
+    </div>
+    <button class="likebtn" style="margin-left:60%; margin-top:-42px"><span title="Add Review">Add Review</span></button>
+</form>
+
+@if (Model.Reviews.Count > 0)
+ {
+    <div class="RatingAverages">
+
+        <p style="margin-left:15px">
+            Average rating :  @Model.AverageRating ★ from @Model.Reviews.Count review(s)
+            @for (int i = 0; i < Model.RatingPercentages.Count; i++)
+             {
+                <div style="margin-left:15%; width:200px;">
+                    @for (int j = i + 1; j > 0; j--)
+                     {
+                        <span style="margin-right:5px;">★</span>
+                     }
+                    <div class="progress">
+                        <div class="progressbar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:@Model.RatingPercentages[i]%">@Model.RatingPercentages[i]%</div>
+                    </div>
+                </div>
+             }
+        </p>
+    </div>
+    
+    <table class="table">
+
+        <thead style="border-bottom:solid black">
+            <tr>
+                <th width="200px">
+                    Review
+                </th>
+                <th>
+                    Autor
+                </th>
+                <th width=200px>
+                    Date
+                </th>
+            </tr>
+        </thead>
+        @foreach (Review review in Model.Reviews)
+         {
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayName((Model.Reviews.IndexOf(review) + 1).ToString())
+                    </th>
+                    <th>
+                        @Html.DisplayName(review.Autor)
+                    </th>
+                    <th>
+                        @Html.DisplayName(review.Date.ToShortDateString())
+                    </th>
+                </tr>
+            </tbody>
+            <tbody style="border-bottom:solid black; width: 100%">
+                <tr>
+                    <th>
+                        @Html.Raw(review.Text)        
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        Rating :
+                        @for (int i = 0; i < review.StarRating; i++)
+                         {
+                            <span class="icon">★</span>
+                         }
+                    </th>
+                </tr>
+            </tbody>
+         }
+    </table>
+ }
+ else
+ { <h4 class="NoItems">No Reviews Yet</h4>}

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "CreateNew";
+}
+<link rel="stylesheet" href="../Content/stylesheet.css" type="text/css">
+<div class="EnterInfoView">
+    <form method="post" action="@Url.Action("CreateNew","Account")">
+        <div style="margin-left:10px">
+            <label><b>Username</b></label>
+            <input style="height:40px; margin-top:2px" type="text" name="Name" placeholder="Enter Username" required>
+            <div>
+                <label><b>Password</b></label>
+                <input style="height:40px; margin-top:5px;" type="password" name="Password" placeholder="Enter Password" required>
+            </div>
+            <div>
+                <button class="likebtn" style="margin-right: 50%">Create</button>
+            </div>
+        </div>
+
+    </form>
+        <form action="@Url.Action("Index", "Account")">
+            <button class="cancelbtn" style="margin-top:-62px">Cancel</button>
+        </form>
+
+</div>
