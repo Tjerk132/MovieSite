@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Moq;
 using MovieSite.Controllers;
-using MovieSite.Models.ViewModels.MovieViewModels;
+using MovieSite.ViewModels.MovieViewModels;
+using MovieViewer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,12 +17,22 @@ namespace MovieSiteTestProject.ControllerTests
     public class MoviesControllerTests
     {
         private Mock<IMoviesContext> mock;
+        private Mock<IUserSession> sessionmock;
+
+        private MoviesController controller;
+        private readonly MoviesLogic MoviesLogic;
+        private Account account;
         public MoviesControllerTests()
         {
             mock = new Mock<IMoviesContext>();
+            sessionmock = new Mock<IUserSession>();
+
+            MoviesLogic = new MoviesLogic(mock.Object);
+            account = new Account();
         }
-        [Fact]
-        public void TestGetMovies()
+        [Theory]
+        [InlineData("Simon","123")]
+        public void TestGetMovies(string Name, string Password)
         {
             //Arrange
             List<Movie> movies = new List<Movie>
@@ -30,21 +41,14 @@ namespace MovieSiteTestProject.ControllerTests
                 new Movie(2,"Shrek 2",DateTime.Now,2000,87),
                 new Movie(3,"Shrek 3",DateTime.Now,2000,57),
             };
-            var Account = new Account
-            {
-                Name = "Simon",
-                Password = "123"
-            };
-
             mock.Setup(x => x.GetMovies()).Returns(movies);
-            MoviesLogic MoviesLogic = new MoviesLogic(mock.Object);
 
+            account.Name = Name;
+            account.Password = Password;
 
-            var controllercontext = new Mock<HttpContext>();
-            controllercontext.Setup(x => x.Session.GetObject<Account>("User")).Returns(Account);
+            sessionmock.Setup(x => x.GetAccount()).Returns(account);
 
-            MoviesController controller = new MoviesController(MoviesLogic);
-            controller.ControllerContext.HttpContext = controllercontext.Object;
+            controller = new MoviesController(MoviesLogic, sessionmock.Object);        
 
             //Act
             ViewResult result = controller.Index() as ViewResult;

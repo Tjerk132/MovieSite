@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{BEEAA231-A24C-4044-B01C-7F39C652AF44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.DataLayer", "DataLayer\MovieSite.DataLayer.csproj", "{BEEAA231-A24C-4044-B01C-7F39C652AF44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{752A63A0-0170-4B23-8B0C-D06E4669BAE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.Helpers", "Helpers\MovieSite.Helpers.csproj", "{752A63A0-0170-4B23-8B0C-D06E4669BAE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{29BBFBB7-0A57-4542-8257-E28FB75EEF37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.Interfaces", "Interfaces\MovieSite.Interfaces.csproj", "{29BBFBB7-0A57-4542-8257-E28FB75EEF37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{69AF886C-9206-47C5-9BE5-11316419EF36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.LogicLayer", "LogicLayer\MovieSite.LogicLayer.csproj", "{69AF886C-9206-47C5-9BE5-11316419EF36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{76D4A174-035E-4E9D-87D1-85C666EFC95F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.Models", "Models\MovieSite.Models.csproj", "{76D4A174-035E-4E9D-87D1-85C666EFC95F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.TestProject", "MovieSite.TestProject\MovieSite.TestProject.csproj", "{B535014F-85DD-4DF3-AA96-4061763F5A91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieSite.TestProject", "MovieSite.TestProject\MovieSite.TestProject.csproj", "{B535014F-85DD-4DF3-AA96-4061763F5A91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWebsite", "MovieWebsite\MovieWebsite.csproj", "{38455C09-57BC-4AEE-85FB-F9E8754246E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieWebsite", "MovieWebsite\MovieWebsite.csproj", "{38455C09-57BC-4AEE-85FB-F9E8754246E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieSite.Repositories", "Repositories\MovieSite.Repositories.csproj", "{43E04FA2-856D-46D6-A82F-A16F6DE72B87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{38455C09-57BC-4AEE-85FB-F9E8754246E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38455C09-57BC-4AEE-85FB-F9E8754246E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38455C09-57BC-4AEE-85FB-F9E8754246E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E04FA2-856D-46D6-A82F-A16F6DE72B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E04FA2-856D-46D6-A82F-A16F6DE72B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E04FA2-856D-46D6-A82F-A16F6DE72B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E04FA2-856D-46D6-A82F-A16F6DE72B87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

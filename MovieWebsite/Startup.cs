@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Interfaces.Interfaces;
-using DataLayer.Data;
+using DataLayer.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,7 +46,9 @@ namespace MovieViewer
             services.AddMvc();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-           
+            services.AddScoped<IUserSession, UserSession>();
+
+
             services.AddScoped<IAccountContext, AccountContext>();
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();

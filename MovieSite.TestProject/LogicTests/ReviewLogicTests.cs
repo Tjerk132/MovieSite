@@ -28,10 +28,10 @@ namespace MovieSiteTestProject.LogicTests
                 new Review(DateTime.Now, "Superb", "Pieter", 5)
             };
             List<double> averages = logic.GetRatingPercentages(Reviews);
-            //Method will always make 5 averages for all 5 StarRating possibilities
+            //Method should always make 5 averages for all 5 StarRating possibilities
             Assert.Equal(5, averages.Count);
             //averages list should have one item with 33% and one with 67%
-            Assert.True(averages.IndexOf(33) != 0 && averages.IndexOf(100-33) != 0);
+            Assert.True(averages.IndexOf(33) != 0 && averages.IndexOf(67) != 0);
         }
         [Fact]
         public void TestTotalAverageReviews()

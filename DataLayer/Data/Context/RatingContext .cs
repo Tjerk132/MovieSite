@@ -8,7 +8,7 @@ using System.Data;
 using Models;
 using Interfaces.Interfaces;
 
-namespace DataLayer.Data
+namespace DataLayer.Context
 {
     public class RatingContext : IRatingContext
     {

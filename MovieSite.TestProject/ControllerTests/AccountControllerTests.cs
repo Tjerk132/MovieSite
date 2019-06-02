@@ -1,36 +1,37 @@
-﻿using DataLayer.Data;
-using Interfaces.Interfaces;
+﻿using Interfaces.Interfaces;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using Models;
 using MovieSite.Controllers;
-using MovieSite.Models.ViewModels.AccountViewModels;
+using MovieSite.ViewModels.AccountViewModels;
 using Microsoft.AspNetCore.Mvc;
+using MovieViewer;
 
 namespace MovieSiteTestProject.ControllerTests
 {
     public class AccountControllerTests
     {
         private Mock<IAccountContext> mock;
+        private Mock<IUserSession> sessionmock;
+
         private AccountController controller;
+        private readonly Account account;
         public AccountControllerTests()
         {
             mock = new Mock<IAccountContext>();
-            controller = new AccountController(mock.Object);
+            sessionmock = new Mock<IUserSession>();
+
+            controller = new AccountController(mock.Object, sessionmock.Object);
+            account = new Account
+            {
+                Name = "Simon",
+                Password = "333"
+            };
         }
-        [Theory]
-        [InlineData("Simon","333")]
-        public void TestLogin(string Name, string Password)
+        [Fact]
+        public void TestLogin()
         {
             //Arrange
-            Account account = new Account
-            {
-                Name = Name,
-                Password = Password
-            };
             mock.Setup(x => x.LoginUser(account))
                 .Returns(new Account());
             //Act

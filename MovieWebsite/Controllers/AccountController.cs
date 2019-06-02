@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using DataLayer.Data;
+using DataLayer.Context;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using MovieSite.Models.ViewModels.AccountViewModels;
+using MovieSite.ViewModels.AccountViewModels;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Routing;
@@ -21,19 +21,21 @@ namespace MovieSite.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountContext _context;
+        private readonly IUserSession _userSession;
         private AccountLogic Logic;
-        public AccountController(IAccountContext accountcontext)
+        public AccountController(IAccountContext accountcontext, IUserSession userSession)
         {
             _context = accountcontext;
+            _userSession = userSession;
             Logic = new AccountLogic(_context);
         }
 
         public IActionResult Index()
         {
             AccountIndexViewModel viewModel = new AccountIndexViewModel();
-            if (HttpContext.Session.GetObject<Account>("User") != null)
+            if (_userSession.GetSession != null)
             {
-                viewModel.Account = HttpContext.Session.GetObject<Account>("User");            
+                viewModel.Account = _userSession.GetSession;            
             }
             return View(viewModel);
         }
@@ -49,7 +51,7 @@ namespace MovieSite.Controllers
         {
             DetailsViewModel viewModel = new DetailsViewModel
             {
-                Account = HttpContext.Session.GetObject<Account>("User"),
+                Account = _userSession.GetSession,
             };
             viewModel.Reviews = Logic.GetUserReviews(viewModel.Account);
             return View(viewModel);
@@ -75,7 +77,7 @@ namespace MovieSite.Controllers
             }
             else
             {
-                HttpContext.Session.SetObject("User", account);
+                _userSession.SetSession(account);
                 return RedirectToAction("Index", "Movies");
             }
         }
@@ -83,7 +85,7 @@ namespace MovieSite.Controllers
         public IActionResult CreateNew(Account account)
         {
             _context.CreateNew(account);
-            HttpContext.Session.SetObject("User", account);
+            _userSession.SetSession(account);
             return RedirectToAction("Index"/*, new RouteValueDictionary(account)*/);
         }
     }

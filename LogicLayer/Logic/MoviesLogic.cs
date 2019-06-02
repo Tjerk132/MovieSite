@@ -1,9 +1,9 @@
 ﻿using Interfaces.Interfaces;
-using DataLayer.Data;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MovieSite.Repoisitories.Repositories;
 
 namespace LogicLayer.Logic
 {

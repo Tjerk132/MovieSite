@@ -9,7 +9,7 @@ using System.Web;
 using Models;
 using Interfaces.Interfaces;
 
-namespace DataLayer.Data
+namespace DataLayer.Context
 {
     public class ReviewContext : IReviewContext
     {    

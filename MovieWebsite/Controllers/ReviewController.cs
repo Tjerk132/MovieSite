@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MovieSite.Models.ViewModels.ReviewViewModels;
+using MovieSite.ViewModels.ReviewViewModels;
 using Models;
 using LogicLayer.Logic;
-using DataLayer.Data;
+using DataLayer.Context;
 using Microsoft.AspNetCore.Http;
 using Interfaces.Interfaces;
 

@@ -54,21 +54,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+    <ProjectReference Include="..\DataLayer\MovieSite.DataLayer.csproj">
       <Project>{beeaa231-a24c-4044-b01c-7f39c652af44}</Project>
-      <Name>DataLayer</Name>
+      <Name>MovieSite.DataLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
+    <ProjectReference Include="..\Helpers\MovieSite.Helpers.csproj">
       <Project>{752a63a0-0170-4b23-8b0c-d06e4669bae6}</Project>
-      <Name>Helpers</Name>
+      <Name>MovieSite.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+    <ProjectReference Include="..\Interfaces\MovieSite.Interfaces.csproj">
       <Project>{29BBFBB7-0A57-4542-8257-E28FB75EEF37}</Project>
-      <Name>Interfaces</Name>
+      <Name>MovieSite.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="..\Models\MovieSite.Models.csproj">
       <Project>{76d4a174-035e-4e9d-87d1-85c666efc95f}</Project>
-      <Name>Models</Name>
+      <Name>MovieSite.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositories\MovieSite.Repositories.csproj">
+      <Project>{43e04fa2-856d-46d6-a82f-a16f6de72b87}</Project>
+      <Name>MovieSite.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

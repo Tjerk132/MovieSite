@@ -7,8 +7,9 @@ using System.Data.SqlClient;
 using System.Data;
 using Models;
 using Interfaces.Interfaces;
+using DataLayer.Context;
 
-namespace DataLayer.Data
+namespace DataLayer.Context
 {
     public class MovieContext : IMoviesContext
     {

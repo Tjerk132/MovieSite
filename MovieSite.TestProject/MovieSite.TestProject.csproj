@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\DataLayer\MovieSite.DataLayer.csproj" />
+    <ProjectReference Include="..\Interfaces\MovieSite.Interfaces.csproj" />
+    <ProjectReference Include="..\LogicLayer\MovieSite.LogicLayer.csproj" />
+    <ProjectReference Include="..\Models\MovieSite.Models.csproj" />
     <ProjectReference Include="..\MovieWebsite\MovieWebsite.csproj" />
   </ItemGroup>
 

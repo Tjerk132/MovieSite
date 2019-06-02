@@ -1,11 +1,10 @@
-﻿using MovieSite.Models.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
 
-namespace MovieSite.Models.ViewModels.ReviewViewModels
+namespace MovieSite.ViewModels.ReviewViewModels
 {
     public class ReviewViewModel
     {

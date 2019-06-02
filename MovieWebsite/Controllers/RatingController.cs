@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Interfaces.Interfaces;
-using DataLayer.Data;
+using DataLayer.Context;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using MovieSite.Models.ViewModels.MovieViewModels;
+using MovieSite.ViewModels.MovieViewModels;
 
 namespace MovieSite.Controllers
 {

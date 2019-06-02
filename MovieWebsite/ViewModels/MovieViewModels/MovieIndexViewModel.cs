@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MovieSite.Models.ViewModels.MovieViewModels
+namespace MovieSite.ViewModels.MovieViewModels
 {
     public class MovieIndexViewModel
     {

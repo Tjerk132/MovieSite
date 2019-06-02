@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Moq;
 using MovieSite.Controllers;
-using MovieSite.Models.ViewModels.ReviewViewModels;
+using MovieSite.ViewModels.ReviewViewModels;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -13,21 +13,27 @@ namespace MovieSiteTestProject.ControllerTests
 {
     public class ReviewControllerTests
     {
-        [Fact]
-        public void TestGetReviews()
+        private Mock<IReviewContext> mock;
+        private readonly ReviewLogic logic;
+        private ReviewController controller;
+        private readonly List<Review> reviews;
+        public ReviewControllerTests()
         {
-            //Arrange
-            List<Review> reviews = new List<Review>
+            mock = new Mock<IReviewContext>();
+            logic = new ReviewLogic(mock.Object);
+            controller = new ReviewController(logic);
+
+            reviews = new List<Review>
             {
                 new Review(DateTime.Now, "Great Movie", "Simon", 4),
                 new Review(DateTime.Now, "Excellent", "Henk", 5)
             };
-
-            Mock<IReviewContext> mock = new Mock<IReviewContext>();
+        }
+        [Fact]
+        public void TestGetReviews()
+        {
+            //Arrange
             mock.Setup(x => x.GetReviews(1)).Returns(reviews);
-            ReviewLogic logic = new ReviewLogic(mock.Object);
-
-            ReviewController controller = new ReviewController(logic);
 
             //Act
             ViewResult result = controller.NewReview(1,"Shrek") as ViewResult;
@@ -39,20 +45,9 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestAddReview()
         {
             //Arrange
-            List<Review> reviews = new List<Review>
-            {
-                new Review(DateTime.Now,"Great Movie", "Simon", 4),
-                new Review(DateTime.Now, "Excellent","Henk", 5)
-            };
+            mock.Setup(x => x.GetReviews(1)).Returns(reviews);
 
             Review review = new Review(DateTime.Now, "", "Sebastian", 4);
-
-            Mock<IReviewContext> mock = new Mock<IReviewContext>();
-            mock.Setup(x => x.GetReviews(1)).Returns(reviews);
-            ReviewLogic logic = new ReviewLogic(mock.Object);
-
-            ReviewController controller = new ReviewController(logic);
-
             //Act
             var result = controller.AddReview(1, review.Date, review.Text, review.StarRating, "Shrek") 
                 as ViewResult;

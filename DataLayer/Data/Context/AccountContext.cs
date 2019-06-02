@@ -9,8 +9,9 @@ using System.Web;
 using Models;
 using Helpers;
 using Interfaces.Interfaces;
+using DataLayer.Context;
 
-namespace DataLayer.Data
+namespace DataLayer.Context
 {
     public class AccountContext : IAccountContext
     {    

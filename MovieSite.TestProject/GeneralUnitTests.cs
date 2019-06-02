@@ -7,8 +7,8 @@ using Xunit;
 using System.Net;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
-using DataLayer.Data.ModelData;
-using DataLayer.Data;
+using DataLayer.Context.ModelData;
+using DataLayer.Context;
 
 namespace MovieSiteTestProject
 {
@@ -20,7 +20,7 @@ namespace MovieSiteTestProject
             using (var Client = new HttpClient())
             {
                 //Arrange
-                var request = "https://localhost:44328/";
+                var request = "https://localhost:44305/";
                 //Act
                 var response = await Client.GetAsync(request);
                 //Assert             

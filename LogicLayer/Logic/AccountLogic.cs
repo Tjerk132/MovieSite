@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Net.Http;
-using DataLayer.Data.ModelData;
+﻿using System.Collections.Generic;
 using Models;
 using Interfaces.Interfaces;
 using Models.Enumeration;
 using Helpers;
+using MovieSite.Repoisitories.Repositories;
 
 namespace LogicLayer.Logic
 {

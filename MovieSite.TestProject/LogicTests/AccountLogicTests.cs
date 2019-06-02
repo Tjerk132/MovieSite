@@ -14,21 +14,21 @@ namespace MovieSiteTestProject.LogicTests
     {
         private Mock<IAccountContext> _context;
         private AccountLogic logic;
+        private Account account;
         public AccountLogicTests()
         {
             _context = new Mock<IAccountContext>();
             logic = new AccountLogic(_context.Object);
+            account = new Account();
         }
         [Theory]
         [InlineData("Simon", "223")]
         [InlineData("Alfred", "123")]
         public void TestAdminUser(string Name, string Password)
         {
-            Account account = new Account
-            {
-                Name = Name,
-                Password = Password
-            };
+            account.Name = Name;
+            account.Password = Password;
+
             _context.Setup(x => x.LoginUser(account))
                 .Returns(new Account { Name = account.Name, Password = account.Password, AccountId = 2});
 

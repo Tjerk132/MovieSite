@@ -106,31 +106,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ConnectionString.cs" />
-    <Compile Include="Data\ModelData\RatingContext .cs" />
-    <Compile Include="Data\ModelData\ReviewContext.cs" />
-    <Compile Include="Data\ModelData\AccountContext.cs" />
-    <Compile Include="Data\ModelData\MovieContext.cs" />
-    <Compile Include="Data\Repositories\RatingRepository.cs" />
-    <Compile Include="Data\Repositories\ReviewRepository.cs" />
-    <Compile Include="Data\Repositories\AccountRepository.cs" />
-    <Compile Include="Data\Repositories\MoviesRepository.cs" />
+    <Compile Include="Data\Context\RatingContext .cs" />
+    <Compile Include="Data\Context\ReviewContext.cs" />
+    <Compile Include="Data\Context\AccountContext.cs" />
+    <Compile Include="Data\Context\MovieContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Data\App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
+    <ProjectReference Include="..\Helpers\MovieSite.Helpers.csproj">
       <Project>{752a63a0-0170-4b23-8b0c-d06e4669bae6}</Project>
-      <Name>Helpers</Name>
+      <Name>MovieSite.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+    <ProjectReference Include="..\Interfaces\MovieSite.Interfaces.csproj">
       <Project>{29BBFBB7-0A57-4542-8257-E28FB75EEF37}</Project>
-      <Name>Interfaces</Name>
+      <Name>MovieSite.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="..\Models\MovieSite.Models.csproj">
       <Project>{76d4a174-035e-4e9d-87d1-85c666efc95f}</Project>
-      <Name>Models</Name>
+      <Name>MovieSite.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-using System.Net.Http;
-using System.Security.Cryptography;
-using DataLayer.Data;
-using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
-using DataLayer.Data.ModelData;
 using Models;
 using Interfaces.Interfaces;
+using MovieSite.Repoisitories.Repositories;
 
 namespace LogicLayer.Logic
 {

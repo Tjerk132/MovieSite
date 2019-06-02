@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieSite.Models.ViewModels.ErrorViewModels;
+using MovieSite.ViewModels.ErrorViewModels;
 using LogicLayer.Logic;
 using Helpers;
 
