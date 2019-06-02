@@ -12,16 +12,17 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class MoviesLogicTests
     {
-        private Mock<IMoviesContext> _context;
+        private Mock<IMoviesContext> moviecontextmock;
         private MoviesLogic logic;
         public MoviesLogicTests()
         {
-            _context = new Mock<IMoviesContext>();
-            logic = new MoviesLogic(_context.Object);
+            moviecontextmock = new Mock<IMoviesContext>();
+            logic = new MoviesLogic(moviecontextmock.Object);
         }
         [Fact]
         public void TestFilterMovies()
         {
+            //Arrange
             List<Movie> movies = new List<Movie>
             {
                 new Movie(1,"Shrek",DateTime.Now,2000,67),
@@ -29,7 +30,11 @@ namespace MovieSiteTestProject.LogicTests
                 new Movie(3,"Transformers",DateTime.Now,2000,87),
                 new Movie(4,"Harry Potter",DateTime.Now,2000,57),
             };
+
+            //Act
             movies = logic.Filtermovie(movies, "Shrek");
+
+            //Assert
             Assert.Equal(2, movies.Count);
         }
 

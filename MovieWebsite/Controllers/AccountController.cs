@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using DataLayer.Context;
-using Models;
+﻿using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using MovieSite.ViewModels.AccountViewModels;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
-using Microsoft.AspNetCore.Routing;
-using LogicLayer;
 using MovieViewer;
 
 namespace MovieSite.Controllers

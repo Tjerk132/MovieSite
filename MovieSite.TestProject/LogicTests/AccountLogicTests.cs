@@ -12,13 +12,13 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class AccountLogicTests
     {
-        private Mock<IAccountContext> _context;
+        private Mock<IAccountContext> accountcontextmock;
         private AccountLogic logic;
         private Account account;
         public AccountLogicTests()
         {
-            _context = new Mock<IAccountContext>();
-            logic = new AccountLogic(_context.Object);
+            accountcontextmock = new Mock<IAccountContext>();
+            logic = new AccountLogic(accountcontextmock.Object);
             account = new Account();
         }
         [Theory]
@@ -26,14 +26,18 @@ namespace MovieSiteTestProject.LogicTests
         [InlineData("Alfred", "123")]
         public void TestAdminUser(string Name, string Password)
         {
+            //Arrange
             account.Name = Name;
             account.Password = Password;
 
-            _context.Setup(x => x.LoginUser(account))
+            accountcontextmock.Setup(x => x.LoginUser(account))
                 .Returns(new Account { Name = account.Name, Password = account.Password, AccountId = 2});
 
+            //Act
             account = logic.LoginUser(account);
+
             //Account is only a Admin if AccountId = 1
+            //Assert
             Assert.Equal(Priority.User, account.Priority);
         }
 

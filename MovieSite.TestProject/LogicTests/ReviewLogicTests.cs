@@ -11,12 +11,12 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class ReviewLogicTests
     {
-        private Mock<IReviewContext> _context;
+        private Mock<IReviewContext> reviewcontextmock;
         private ReviewLogic logic;
         public ReviewLogicTests()
         {
-            _context = new Mock<IReviewContext>();
-            logic = new ReviewLogic(_context.Object);
+            reviewcontextmock = new Mock<IReviewContext>();
+            logic = new ReviewLogic(reviewcontextmock.Object);
         }
         [Fact]
         public void TestRatingAverages()

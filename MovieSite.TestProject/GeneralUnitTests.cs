@@ -7,7 +7,7 @@ using Xunit;
 using System.Net;
 using Interfaces.Interfaces;
 using LogicLayer.Logic;
-using DataLayer.Context.ModelData;
+using DataLayer.Context;
 using DataLayer.Context;
 
 namespace MovieSiteTestProject

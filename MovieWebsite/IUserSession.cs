@@ -22,8 +22,9 @@ namespace MovieViewer
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public Account GetSession =>_httpContextAccessor.HttpContext.Session.GetObject<Account>("User");
+        public Account GetSession => _httpContextAccessor.HttpContext.Session.GetObject<Account>("User");
         public void SetSession(Account account) => _httpContextAccessor.HttpContext.Session.SetObject("User", account);
+
     }
 
 }

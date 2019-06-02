@@ -1,5 +1,6 @@
 ﻿using Interfaces.Interfaces;
 using LogicLayer.Logic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Moq;
@@ -13,14 +14,16 @@ namespace MovieSiteTestProject.ControllerTests
 {
     public class ReviewControllerTests
     {
-        private Mock<IReviewContext> mock;
+        private Mock<IReviewContext> reviewcontextmock;
         private readonly ReviewLogic logic;
         private ReviewController controller;
+
         private readonly List<Review> reviews;
         public ReviewControllerTests()
         {
-            mock = new Mock<IReviewContext>();
-            logic = new ReviewLogic(mock.Object);
+            reviewcontextmock = new Mock<IReviewContext>();
+
+            logic = new ReviewLogic(reviewcontextmock.Object);
             controller = new ReviewController(logic);
 
             reviews = new List<Review>
@@ -33,11 +36,12 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestGetReviews()
         {
             //Arrange
-            mock.Setup(x => x.GetReviews(1)).Returns(reviews);
+            reviewcontextmock.Setup(x => x.GetReviews(1)).Returns(reviews);
 
             //Act
             ViewResult result = controller.NewReview(1,"Shrek") as ViewResult;
             var viewmodel = result.Model as ReviewViewModel;
+
             //Assert
             Assert.Equal(2, viewmodel.Reviews.Count);
         }
@@ -45,7 +49,7 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestAddReview()
         {
             //Arrange
-            mock.Setup(x => x.GetReviews(1)).Returns(reviews);
+            reviewcontextmock.Setup(x => x.GetReviews(1)).Returns(reviews);
 
             Review review = new Review(DateTime.Now, "", "Sebastian", 4);
             //Act
@@ -53,6 +57,7 @@ namespace MovieSiteTestProject.ControllerTests
                 as ViewResult;
 
             var viewmodel = result.Model as ReviewViewModel;
+
             //Assert
             Assert.Equal("Please insert all fields", viewmodel.Message);
         }
