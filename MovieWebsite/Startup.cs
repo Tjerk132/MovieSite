@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Interfaces.Interfaces;
 using DataLayer.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,15 +6,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Diagnostics;
-using System.IO;
 using LogicLayer.Logic;
+using Helpers;
+using Interfaces.ContextInterfaces;
+using Interfaces.LogicInterfaces;
+using MovieSite.Controllers;
 
 namespace MovieViewer
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public static string ConnectionString { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -48,16 +47,14 @@ namespace MovieViewer
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserSession, UserSession>();
 
-
+            services.AddScoped<IAccountLogic, AccountLogic>();
+            services.AddScoped<IMoviesLogic, MoviesLogic>();
+            services.AddScoped<IReviewLogic, ReviewLogic>();
+            services.AddScoped<IRatingLogic, RatingLogic>();
             services.AddScoped<IAccountContext, AccountContext>();
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();
             services.AddScoped<IRatingContext, RatingContext>();
-
-            services.AddScoped<AccountLogic>();
-            services.AddScoped<MoviesLogic>();
-            services.AddScoped<ReviewLogic>();
-            services.AddScoped<RatingLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +70,14 @@ namespace MovieViewer
 
             app.UseMvc();
 
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+            ConnectionString = builder["ConnectionStrings:DefaultConnection"];
+            Connection.ConnectionString = ConnectionString;
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

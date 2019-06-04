@@ -9,7 +9,7 @@
         <li><a href="@Url.Action("Index", "Account")" style="font-size:24px">Account</a>
         <li style="float:right;">
             @if (Context.Session.GetObject<Account>("User") != null)
-            {
+             {
                 Account Account = Context.Session.GetObject<Account>("User");
                 <a class="Username" href="@Url.Action("Details", "Account")"> @Account.Name </a>
              }

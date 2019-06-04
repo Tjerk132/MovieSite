@@ -1,14 +1,6 @@
-using Models;
-using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using System.Net;
-using Interfaces.Interfaces;
-using LogicLayer.Logic;
-using DataLayer.Context;
-using DataLayer.Context;
 
 namespace MovieSiteTestProject
 {

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Models;
-using Interfaces.Interfaces;
-using MovieSite.Repoisitories.Repositories;
+using Interfaces.ContextInterfaces;
+using Repositories.Repositories;
+using Interfaces.LogicInterfaces;
 
 namespace LogicLayer.Logic
 {
-    public class ReviewLogic
+    public class ReviewLogic : IReviewLogic
     {
+        private readonly IReviewContext _context;
         public ReviewLogic(IReviewContext context)
         {
-            Repository = new ReviewRepository(context);
+            _context = context;
+            Repository = new ReviewRepository(_context);
         }
         private ReviewRepository Repository { get; }
 

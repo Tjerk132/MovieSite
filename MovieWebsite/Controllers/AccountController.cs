@@ -1,23 +1,22 @@
 ﻿using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using MovieSite.ViewModels.AccountViewModels;
-using Interfaces.Interfaces;
+using Interfaces.LogicInterfaces;
 using LogicLayer.Logic;
 using MovieViewer;
+using MovieSite.ViewModels.AccountViewModels;
+using Interfaces.ContextInterfaces;
 
 namespace MovieSite.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountContext _context;
         private readonly IUserSession _userSession;
-        private AccountLogic Logic;
-        public AccountController(IAccountContext accountcontext, IUserSession userSession)
+        private readonly IAccountLogic _logic;
+        public AccountController(IAccountLogic logic, IUserSession userSession)
         {
-            _context = accountcontext;
             _userSession = userSession;
-            Logic = new AccountLogic(_context);
+            _logic = logic;
         }
 
         public IActionResult Index()
@@ -43,7 +42,7 @@ namespace MovieSite.Controllers
             {
                 Account = _userSession.GetSession,
             };
-            viewModel.Reviews = Logic.GetUserReviews(viewModel.Account);
+            viewModel.Reviews = _logic.GetUserReviews(viewModel.Account);
             return View(viewModel);
         }
         public IActionResult LogoutUser()
@@ -54,7 +53,7 @@ namespace MovieSite.Controllers
         [HttpPost]
         public IActionResult LoginUser(Account account)
         {
-            account = Logic.LoginUser(account);
+            account = _logic.LoginUser(account);
 
             LoginViewModel viewmodel = new LoginViewModel()
             {
@@ -74,7 +73,7 @@ namespace MovieSite.Controllers
         [HttpPost]
         public IActionResult CreateNew(Account account)
         {
-            _context.CreateNew(account);
+            _logic.CreateNew(account);
             _userSession.SetSession(account);
             return RedirectToAction("Index"/*, new RouteValueDictionary(account)*/);
         }

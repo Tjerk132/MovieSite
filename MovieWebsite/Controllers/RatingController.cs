@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Interfaces.Interfaces;
-using DataLayer.Context;
+﻿using Interfaces.LogicInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +10,13 @@ namespace MovieSite.Controllers
 {
     public class RatingController : Controller
     {
-        private readonly RatingLogic _ratinglogic;
-        private readonly MoviesLogic _movielogic;
+        private readonly IRatingLogic _ratinglogic;
+        private readonly IMoviesLogic _movieslogic;
         private readonly IUserSession _userSession;
-        public RatingController(RatingLogic ratinglogic, MoviesLogic movielogic, IUserSession usersession)
+        public RatingController(IRatingLogic ratinglogic, IMoviesLogic movielogic, IUserSession usersession)
         {
             _ratinglogic = ratinglogic;
-            _movielogic = movielogic;
+            _movieslogic = movielogic;
             _userSession = usersession;
         }
         [HttpPost]
@@ -38,11 +33,11 @@ namespace MovieSite.Controllers
             MovieIndexViewModel viewModel = new MovieIndexViewModel
             {
                 Account = account,
-                Movies = _movielogic.GetMovies()
+                Movies = _movieslogic.GetMovies()
             };
             viewModel.Message = Message;
 
-            return View("Views/Movies/Index.cshtml", viewModel);
+            return RedirectToAction("Views/Movies/Index.cshtml", viewModel);
         }
     }
 }

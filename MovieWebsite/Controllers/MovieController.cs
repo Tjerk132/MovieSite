@@ -9,19 +9,20 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using MovieSite;
 using MovieSite.ViewModels.MovieViewModels;
-using Interfaces.Interfaces;
 using MovieViewer;
+using Interfaces.LogicInterfaces;
+using Interfaces.ContextInterfaces;
 
 namespace MovieSite.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly MoviesLogic _context;
+        private readonly IMoviesLogic _logic;
         private readonly IUserSession _userSession;
 
-        public MoviesController(MoviesLogic moviescontext, IUserSession userSession)
+        public MoviesController(IMoviesLogic logic, IUserSession userSession)
         {
-            _context = moviescontext;
+            _logic = logic;
             _userSession = userSession;
         }
         public ActionResult Index()
@@ -31,7 +32,7 @@ namespace MovieSite.Controllers
                 MovieIndexViewModel viewModel = new MovieIndexViewModel
                 {
                     Account = _userSession.GetSession,
-                    Movies = _context.GetMovies()
+                    Movies = _logic.GetMovies()
                 };
                 return View(viewModel);
             }
@@ -48,24 +49,24 @@ namespace MovieSite.Controllers
         [HttpPost]
         public ActionResult ChangeWatched(int MovieId)
         {
-            _context.ChangeWatched(MovieId);
+            _logic.ChangeWatched(MovieId);
             return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult AddMovie(string Title, DateTime ReleaseDate)
         {
-            _context.AddMovie(Title, ReleaseDate);
+            _logic.AddMovie(Title, ReleaseDate);
             return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult FilterMovies(string Title)
         {
-            List<Movie> movies = _context.GetMovies();
+            List<Movie> movies = _logic.GetMovies();
 
             MovieIndexViewModel viewModel = new MovieIndexViewModel
             {
                  Account = _userSession.GetSession,
-                 Movies = _context.Filtermovie(movies, Title)
+                 Movies = _logic.Filtermovie(movies, Title)
             };
             if (viewModel.Movies.Count == 0)
             {

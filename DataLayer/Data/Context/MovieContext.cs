@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using Models;
-using Interfaces.Interfaces;
+using Interfaces.ContextInterfaces;
 using DataLayer.Context;
 
 namespace DataLayer.Context

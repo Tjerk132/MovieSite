@@ -1,8 +1,8 @@
-﻿using Interfaces.Interfaces;
+﻿using Interfaces.ContextInterfaces;
 using Models;
 using System.Collections.Generic;
 
-namespace MovieSite.Repoisitories.Repositories
+namespace Repositories.Repositories
 {
     public class ReviewRepository
     {

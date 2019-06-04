@@ -44,10 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IAccountContext.cs" />
-    <Compile Include="Interfaces\IMoviesContext.cs" />
-    <Compile Include="Interfaces\IRatingContex.cs" />
-    <Compile Include="Interfaces\IReviewContext.cs" />
+    <Compile Include="ContextInterfaces\IAccountContext.cs" />
+    <Compile Include="ContextInterfaces\IMoviesContext.cs" />
+    <Compile Include="ContextInterfaces\IRatingContex.cs" />
+    <Compile Include="ContextInterfaces\IReviewContext.cs" />
+    <Compile Include="LogicInterfaces\IAccountLogic.cs" />
+    <Compile Include="LogicInterfaces\IMoviesLogic.cs" />
+    <Compile Include="LogicInterfaces\IRatingLogic.cs" />
+    <Compile Include="LogicInterfaces\IReviewLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

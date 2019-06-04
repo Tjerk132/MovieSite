@@ -4,12 +4,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace DataLayer.Context
 {
     public class ConnectionString
     {
-        public SqlConnection connectionstring = new SqlConnection
+        public SqlConnection  connectionstring = new SqlConnection
         (
             //@"Data Source = (localdb)\MSSQLLocalDB;
             //Initial Catalog = Database;

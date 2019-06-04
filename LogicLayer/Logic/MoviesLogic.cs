@@ -1,17 +1,20 @@
-﻿using Interfaces.Interfaces;
+﻿using Interfaces.ContextInterfaces;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MovieSite.Repoisitories.Repositories;
+using Repositories.Repositories;
+using Interfaces.LogicInterfaces;
 
 namespace LogicLayer.Logic
 {
-    public class MoviesLogic
+    public class MoviesLogic : IMoviesLogic
     {
+        private readonly IMoviesContext _context;
         public MoviesLogic(IMoviesContext context)
         {
-            Repository = new MoviesRepository(context);
+            _context = context;
+            Repository = new MoviesRepository(_context);
         }
         private MoviesRepository Repository { get; }
 
@@ -20,7 +23,7 @@ namespace LogicLayer.Logic
             Movie movie = new Movie(0, Title, ReleaseDate, 0, 0);
             Repository.Add(movie);
         }
-        public virtual List<Movie>GetMovies()
+        public List<Movie>GetMovies()
         {
             return Repository.GetMovies();
         }

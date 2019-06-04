@@ -18,12 +18,13 @@ namespace MovieViewer.Controllers
         {
             if (statusCode.HasValue)
             {
+                StatusCodeBuilder builder = new StatusCodeBuilder();
                 ErrorViewModel viewModel = new ErrorViewModel
                 {
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
                     StatusCode = statusCode,
-                    StatusCodeTitle = StatusCodeBuilder.GetStatusCodeTitle(statusCode),
-                    StatusCodeInfo = StatusCodeBuilder.GetStatusCodeInfo(statusCode)
+                    StatusCodeTitle = builder.GetStatusCodeTitle(statusCode),
+                    StatusCodeInfo = builder.GetStatusCodeInfo(statusCode)
                 };
                 return View(viewModel);
             }

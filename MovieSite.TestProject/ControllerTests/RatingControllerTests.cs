@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Interfaces.Interfaces;
+using Interfaces.ContextInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Mvc;
 using Models;

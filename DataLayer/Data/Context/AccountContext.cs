@@ -8,16 +8,17 @@ using System.Data;
 using System.Web;
 using Models;
 using Helpers;
-using Interfaces.Interfaces;
+using Interfaces.ContextInterfaces;
 using DataLayer.Context;
 
 namespace DataLayer.Context
 {
     public class AccountContext : IAccountContext
     {    
-        ConnectionString conn = new ConnectionString();
+        ConnectionString conn = new ConnectionString();     
         public Account LoginUser(Account account)
         {
+            //SqlConnection conn = Connection.ConnectionFactory();
             using (conn.connectionstring)
             {
                 conn.connectionstring.Open();
@@ -43,7 +44,8 @@ namespace DataLayer.Context
                     }
                 }
             }
-            if (account.passwordhash == null || !PasswordHelper.ValidatePassword(account.Password, account.passwordhash))
+            PasswordHelper passwordHelper = new PasswordHelper();
+            if (account.passwordhash == null || !passwordHelper.ValidatePassword(account.Password, account.passwordhash))
             {
                 account = new Account();               
             }

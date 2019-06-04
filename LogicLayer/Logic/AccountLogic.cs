@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using Models;
-using Interfaces.Interfaces;
+using Interfaces.ContextInterfaces;
 using Models.Enumeration;
 using Helpers;
-using MovieSite.Repoisitories.Repositories;
+using Repositories.Repositories;
+using Interfaces.LogicInterfaces;
 
 namespace LogicLayer.Logic
 {
-    public class AccountLogic
+    public class AccountLogic : IAccountLogic
     {
+        private readonly IAccountContext _context;
         public AccountLogic(IAccountContext context)
         {
-            Repository = new AccountRepository(context);
+            _context = context;
+            Repository = new AccountRepository(_context);
         }
         private AccountRepository Repository { get; }
 
@@ -28,7 +31,8 @@ namespace LogicLayer.Logic
         }
         public void CreateNew(Account account)
         {
-            account.passwordhash = PasswordHelper.HashPassword(account.Password);
+            PasswordHelper passwordHelper = new PasswordHelper();
+            account.passwordhash = passwordHelper.HashPassword(account.Password);
             Repository.CreateNew(account);
         }
         public List<Review> GetUserReviews(Account account)

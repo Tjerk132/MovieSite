@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces.Interfaces
+namespace Interfaces.LogicInterfaces
 {
-    public interface IAccountContext
+    public interface IAccountLogic
     {
-        Account LoginUser(Account Account);
-        void CreateNew(Account Account);
+        Account LoginUser(Account account);
+        void CreateNew(Account account);
         List<Review> GetUserReviews(Account account);
     }
 }

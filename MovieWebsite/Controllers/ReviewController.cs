@@ -8,27 +8,27 @@ using Models;
 using LogicLayer.Logic;
 using DataLayer.Context;
 using Microsoft.AspNetCore.Http;
-using Interfaces.Interfaces;
+using Interfaces.LogicInterfaces;
 
 namespace MovieSite.Controllers
 {
     public class ReviewController : Controller
     {
-        private readonly ReviewLogic _context;
-        public ReviewController(ReviewLogic reviewlogic)
+        private readonly IReviewLogic _logic;
+        public ReviewController(IReviewLogic logic)
         {
-            _context = reviewlogic;
+            _logic = logic;
         }
         public IActionResult NewReview(int MovieId, string Title)
         {
-            List<Review> reviews = _context.GetReviews(MovieId);
+            List<Review> reviews = _logic.GetReviews(MovieId);
             ReviewViewModel ViewModel = new ReviewViewModel
             {
                 Reviews = reviews,
                 MovieId = MovieId,
                 MovieTitle = Title,
-                AverageRating = _context.AverageRating(reviews),
-                RatingPercentages = _context.GetRatingPercentages(reviews)
+                AverageRating = _logic.AverageRating(reviews),
+                RatingPercentages = _logic.GetRatingPercentages(reviews)
             };  
             return View(ViewModel);
         }
@@ -40,20 +40,20 @@ namespace MovieSite.Controllers
             {
                 Account account = HttpContext.Session.GetObject<Account>("User");
                 Review Review = new Review(Date,Text, account.Name, StarRating);
-                _context.AddReview(Review, MovieId);
+                _logic.AddReview(Review, MovieId);
             }
             else
             {
                 Message = "Please insert all fields";
             }
-            List<Review> reviews = _context.GetReviews(MovieId);
+            List<Review> reviews = _logic.GetReviews(MovieId);
             ReviewViewModel ViewModel = new ReviewViewModel
             {
                 Reviews = reviews,
                 MovieId = MovieId,
                 MovieTitle = Title,
-                AverageRating = _context.AverageRating(reviews),
-                RatingPercentages = _context.GetRatingPercentages(reviews),
+                AverageRating = _logic.AverageRating(reviews),
+                RatingPercentages = _logic.GetRatingPercentages(reviews),
                 Message = Message
             };
             return View("NewReview", ViewModel);

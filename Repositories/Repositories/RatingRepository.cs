@@ -1,7 +1,7 @@
-﻿using Interfaces.Interfaces;
+﻿using Interfaces.ContextInterfaces;
 using Models;
 
-namespace MovieSite.Repoisitories.Repositories
+namespace Repositories.Repositories
 {
     public class RatingRepository
     {

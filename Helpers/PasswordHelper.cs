@@ -9,7 +9,7 @@ namespace Helpers
 {
     public class PasswordHelper
     {
-        public static string HashPassword(string password)
+        public string HashPassword(string password)
         {
             var cryptoProvider = new RNGCryptoServiceProvider();
                           //24 element byte array
@@ -22,7 +22,7 @@ namespace Helpers
                    Convert.ToBase64String(salt) + ":" +
                    Convert.ToBase64String(hash);
         }
-        public static bool ValidatePassword(string password, string correctHash)
+        public bool ValidatePassword(string password, string correctHash)
         {
             char[] delimiter = { ':' };
             var split = correctHash.Split(delimiter);
@@ -32,7 +32,7 @@ namespace Helpers
             var testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
             return SlowEquals(hash, testHash);
         }
-        public static byte[] GetPbkdf2Bytes(string password, byte[] salt, int iterations, int outputBytes)
+        public byte[] GetPbkdf2Bytes(string password, byte[] salt, int iterations, int outputBytes)
         {
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt)
             {
@@ -40,7 +40,7 @@ namespace Helpers
             };
             return pbkdf2.GetBytes(outputBytes);
         }
-        private static bool SlowEquals(byte[] a, byte[] b)
+        private bool SlowEquals(byte[] a, byte[] b)
         {
             var diff = (uint)a.Length ^ (uint)b.Length;
             for (int i = 0; i < a.Length && i < b.Length; i++)

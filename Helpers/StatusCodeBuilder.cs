@@ -8,7 +8,7 @@ namespace LogicLayer.Logic
 {
     public class StatusCodeBuilder
     {
-        public static string GetStatusCodeTitle(int? StatusCode)
+        public string GetStatusCodeTitle(int? StatusCode)
         {
             switch(StatusCode)
             {
@@ -32,7 +32,7 @@ namespace LogicLayer.Logic
                     return "Something unexpected happened";
             }
         }
-        public static string GetStatusCodeInfo(int? StatusCode)
+        public string GetStatusCodeInfo(int? StatusCode)
         {
             switch (StatusCode)
             {
