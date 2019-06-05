@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Interfaces.ContextInterfaces;
+using Interfaces.LogicInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Models;
 using Moq;
 using MovieSite.Controllers;
@@ -15,13 +17,8 @@ namespace MovieSite.TestProject.ControllerTests
 {
     public class RatingControllerTests
     {
-        private Mock<IRatingContext> ratingcontextmock;
-        private Mock<IMoviesContext> moviescontextmock;
-
         private Mock<IUserSession> sessionmock;
-
-        private Mock<RatingLogic> ratinglogic;
-        private Mock<MoviesLogic> movielogic;
+        private Mock<IRatingLogic> ratinglogic;
 
         private RatingController controller;
         private readonly Account account;
@@ -30,13 +27,9 @@ namespace MovieSite.TestProject.ControllerTests
         public RatingControllerTests()
         {
             sessionmock = new Mock<IUserSession>();
-            ratingcontextmock = new Mock<IRatingContext>();
-            moviescontextmock = new Mock<IMoviesContext>();
+            ratinglogic = new Mock<IRatingLogic>();
 
-            ratinglogic = new Mock<RatingLogic>(ratingcontextmock.Object);
-            movielogic = new Mock<MoviesLogic>(moviescontextmock.Object);
-
-            controller = new RatingController(ratinglogic.Object, movielogic.Object, sessionmock.Object);
+            controller = new RatingController(ratinglogic.Object, sessionmock.Object);
             account = new Account
             {
                 Name = "Simon",
@@ -56,18 +49,19 @@ namespace MovieSite.TestProject.ControllerTests
             //Arrange
             sessionmock.Setup(x => x.GetSession).Returns(account);
 
-            movielogic.Setup(x => x.GetMovies()).Returns(movies);
-
-            ratingcontextmock.Setup(x => x.SubmitRating(65, 3, account))
+            ratinglogic.Setup(x => x.SubmitRating(65, 3, account))
                 .Returns("Rating added, Thank you for your feedback");
 
             //Act
-            var result = controller.SubmitRating(65, 3) as ViewResult;
-            var viewmodel = result.Model as MovieIndexViewModel;
+            var result = controller.SubmitRating(65, 3) as RedirectToActionResult;
+
+            RouteValueDictionary RouteDictionary = result.RouteValues;
+            var Message = RouteDictionary["Message"];
 
             //Assert
-            Assert.Equal("Rating added, Thank you for your feedback", viewmodel.Message);
-            Assert.True(result.ViewName == "Views/Movies/Index.cshtml");
+            Assert.Equal("Rating added, Thank you for your feedback", Message);
+            Assert.True(result.ActionName == "Index");
+            Assert.True(result.ControllerName == "Movies");
         }
         [Fact]
         public void TestAlreadyRatedMessage()
@@ -75,17 +69,17 @@ namespace MovieSite.TestProject.ControllerTests
             //Arrange
             sessionmock.Setup(x => x.GetSession).Returns(account);
 
-            ratingcontextmock.Setup(x => x.SubmitRating(65, 3, account))
+            ratinglogic.Setup(x => x.SubmitRating(65, 3, account))
                 .Returns("You have already rated this movie");
 
-            movielogic.Setup(x => x.GetMovies()).Returns(movies);
-
             //Act
-            var result = controller.SubmitRating(65, 3) as ViewResult;
-            var viewmodel = result.Model as MovieIndexViewModel;
+            var result = controller.SubmitRating(65, 3) as RedirectToActionResult;
+
+            RouteValueDictionary RouteDictionary = result.RouteValues;
+            var Message = RouteDictionary["Message"];
 
             //Assert
-            Assert.Equal("You have already rated this movie", viewmodel.Message);
+            Assert.Equal("You have already rated this movie", Message);
         }
         [Fact]
         public void TestRatingOutOfBounds()
@@ -93,14 +87,14 @@ namespace MovieSite.TestProject.ControllerTests
             //Arrange
             sessionmock.Setup(x => x.GetSession).Returns(account);
 
-            movielogic.Setup(x => x.GetMovies()).Returns(movies);
-
             //Act                 //Rating must be between 0 and 100
-            var result = controller.SubmitRating(120, 3) as ViewResult;
-            var viewmodel = result.Model as MovieIndexViewModel;
+            var result = controller.SubmitRating(120, 3) as RedirectToActionResult;
+
+            RouteValueDictionary RouteDictionary = result.RouteValues;
+            var Message = RouteDictionary["Message"];
 
             //Assert
-            Assert.Equal("Please insert a rating between 0 and 100", viewmodel.Message);
+            Assert.Equal("Please insert a rating between 0 and 100", Message);
         }
     }
 }

@@ -11,11 +11,24 @@ using Helpers;
 using Interfaces.ContextInterfaces;
 using Interfaces.LogicInterfaces;
 using MovieSite.Controllers;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace MovieViewer
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            // Configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            Configuration = builder.Build();
+        }
+
         public IConfiguration Configuration { get; }
         public static string ConnectionString { get; private set; }
 
@@ -51,6 +64,7 @@ namespace MovieViewer
             services.AddScoped<IMoviesLogic, MoviesLogic>();
             services.AddScoped<IReviewLogic, ReviewLogic>();
             services.AddScoped<IRatingLogic, RatingLogic>();
+
             services.AddScoped<IAccountContext, AccountContext>();
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();

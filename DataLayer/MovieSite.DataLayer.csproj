@@ -108,7 +108,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ConnectionString.cs" />
     <Compile Include="Data\Context\RatingContext .cs" />
     <Compile Include="Data\Context\ReviewContext.cs" />
     <Compile Include="Data\Context\AccountContext.cs" />

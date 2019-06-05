@@ -1,4 +1,5 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.LogicInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,8 @@ namespace MovieSiteTestProject.ControllerTests
 {
     public class MoviesControllerTests
     {
-        private Mock<IMoviesContext> moviecontextmock;
+        private Mock<IMoviesLogic> logicmock;
+        private Mock<IMoviesContext> contextmock;
         private Mock<IUserSession> sessionmock;
 
         private MoviesController controller;
@@ -26,11 +28,13 @@ namespace MovieSiteTestProject.ControllerTests
         private readonly List<Movie> movies;
         public MoviesControllerTests()
         {
-            moviecontextmock = new Mock<IMoviesContext>();
+            logicmock = new Mock<IMoviesLogic>();
+            contextmock = new Mock<IMoviesContext>();
             sessionmock = new Mock<IUserSession>();
-            MoviesLogic = new MoviesLogic(moviecontextmock.Object);
+
+            MoviesLogic = new MoviesLogic(contextmock.Object);
             account = new Account();
-            controller = new MoviesController(MoviesLogic, sessionmock.Object);
+            controller = new MoviesController(logicmock.Object, sessionmock.Object);
 
             movies = new List<Movie>
             {
@@ -44,7 +48,7 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestGetMovies(string Name, string Password)
         {
             //Arrange
-            moviecontextmock.Setup(x => x.GetMovies()).Returns(movies);
+            logicmock.Setup(x => x.GetMovies()).Returns(movies);
 
             account.Name = Name;
             account.Password = Password;
@@ -52,7 +56,7 @@ namespace MovieSiteTestProject.ControllerTests
             sessionmock.Setup(x => x.GetSession).Returns(account);    
 
             //Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index("") as ViewResult;
             var viewmodel = result.Model as MovieIndexViewModel;
 
             //Assert
@@ -66,7 +70,7 @@ namespace MovieSiteTestProject.ControllerTests
             sessionmock.Setup(x => x.GetSession).Returns(Account);
             
             //Act
-            var result = controller.Index() as ViewResult;
+            var result = controller.Index("") as ViewResult;
    
             //Assert
             Assert.Equal("NotLoggedIn", result.ViewName);
@@ -75,7 +79,9 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestFilterMovies()
         {
             //Arrange
-            moviecontextmock.Setup(x => x.GetMovies()).Returns(movies);
+            logicmock.Setup(x => x.GetMovies()).Returns(movies);
+            var filteredmovies = movies.FindAll(x => x.Title.Contains("Shrek"));
+            logicmock.Setup(x => x.Filtermovie(movies, "Shrek")).Returns(filteredmovies);
 
             //Act
             ViewResult result = controller.FilterMovies("Shrek") as ViewResult;
@@ -88,8 +94,9 @@ namespace MovieSiteTestProject.ControllerTests
         public void TestFilterNoMoviesFound()
         {
             //Arrange
-            moviecontextmock.Setup(x => x.GetMovies()).Returns(movies);
-
+            logicmock.Setup(x => x.GetMovies()).Returns(movies);
+            var filteredmovies = movies.FindAll(x => x.Title.Contains("Batman"));
+            logicmock.Setup(x => x.Filtermovie(movies, "Batman")).Returns(filteredmovies);
             //Act
             ViewResult result = controller.FilterMovies("Batman") as ViewResult;
             var viewmodel = result.Model as MovieIndexViewModel;

@@ -7,24 +7,24 @@ using System.Data.SqlClient;
 using System.Data;
 using Models;
 using Interfaces.ContextInterfaces;
+using Helpers;
 
 namespace DataLayer.Context
 {
     public class RatingContext : IRatingContext
     {
-        ConnectionString conn = new ConnectionString();
-     
+        SqlConnection conn = new SqlConnection(Connection.ConnectionString);
         public string SubmitRating(int Rating, int MovieId, Account account)
         {
             string message;
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 //Check if user has already rated the movie            
                 SqlCommand cmd = new SqlCommand("Check&InsertRating")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddRange(new[]
                 {

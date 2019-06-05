@@ -25,14 +25,15 @@ namespace MovieSite.Controllers
             _logic = logic;
             _userSession = userSession;
         }
-        public ActionResult Index()
+        public ActionResult Index(string Message)
         {
             if (_userSession.GetSession != null)
             {
                 MovieIndexViewModel viewModel = new MovieIndexViewModel
                 {
                     Account = _userSession.GetSession,
-                    Movies = _logic.GetMovies()
+                    Movies = _logic.GetMovies(),
+                    Message = Message
                 };
                 return View(viewModel);
             }

@@ -15,17 +15,16 @@ namespace DataLayer.Context
 {
     public class AccountContext : IAccountContext
     {    
-        ConnectionString conn = new ConnectionString();     
+        SqlConnection conn = new SqlConnection(Connection.ConnectionString);   
         public Account LoginUser(Account account)
-        {
-            //SqlConnection conn = Connection.ConnectionFactory();
-            using (conn.connectionstring)
+        {  
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("ValidateUser")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddWithValue("@username", account.Name);
                 cmd.ExecuteNonQuery();
@@ -53,14 +52,13 @@ namespace DataLayer.Context
         }
         public void CreateNew(Account account)
         {
-            ConnectionString conn = new ConnectionString();
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("AddUser")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddRange(new[]
                 {
@@ -73,13 +71,13 @@ namespace DataLayer.Context
         public List<Review> GetUserReviews(Account account)
         {
             List<Review> reviews = new List<Review>();
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("GetUserReviews")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddWithValue("@Name", account.Name);
                 

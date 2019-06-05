@@ -9,43 +9,21 @@ using LogicLayer.Logic;
 using DataLayer.Context;
 using Microsoft.AspNetCore.Http;
 using Interfaces.LogicInterfaces;
+using MovieViewer;
 
 namespace MovieSite.Controllers
 {
     public class ReviewController : Controller
     {
         private readonly IReviewLogic _logic;
-        public ReviewController(IReviewLogic logic)
+        private readonly IUserSession _userSession;
+        public ReviewController(IReviewLogic logic, IUserSession usersession)
         {
+            _userSession = usersession;
             _logic = logic;
         }
-        public IActionResult NewReview(int MovieId, string Title)
+        public IActionResult NewReview(int MovieId, string Title, string Message)
         {
-            List<Review> reviews = _logic.GetReviews(MovieId);
-            ReviewViewModel ViewModel = new ReviewViewModel
-            {
-                Reviews = reviews,
-                MovieId = MovieId,
-                MovieTitle = Title,
-                AverageRating = _logic.AverageRating(reviews),
-                RatingPercentages = _logic.GetRatingPercentages(reviews)
-            };  
-            return View(ViewModel);
-        }
-        [HttpPost]
-        public IActionResult AddReview(int MovieId, DateTime Date, string Text, int StarRating, string Title)
-        {
-            string Message = "";
-            if (StarRating > 0 && !string.IsNullOrWhiteSpace(Text))
-            {
-                Account account = HttpContext.Session.GetObject<Account>("User");
-                Review Review = new Review(Date,Text, account.Name, StarRating);
-                _logic.AddReview(Review, MovieId);
-            }
-            else
-            {
-                Message = "Please insert all fields";
-            }
             List<Review> reviews = _logic.GetReviews(MovieId);
             ReviewViewModel ViewModel = new ReviewViewModel
             {
@@ -55,8 +33,24 @@ namespace MovieSite.Controllers
                 AverageRating = _logic.AverageRating(reviews),
                 RatingPercentages = _logic.GetRatingPercentages(reviews),
                 Message = Message
-            };
-            return View("NewReview", ViewModel);
+            };  
+            return View(ViewModel);
+        }
+        [HttpPost]
+        public IActionResult AddReview(int MovieId, DateTime Date, string Text, int StarRating, string Title)
+        {
+            string Message = "";
+            if (StarRating > 0 && !string.IsNullOrWhiteSpace(Text))
+            {
+                Account account = _userSession.GetSession;
+                Review Review = new Review(Date,Text, account.Name, StarRating);
+                _logic.AddReview(Review, MovieId);
+            }
+            else
+            {
+                Message = "Please insert all fields";
+            }
+            return RedirectToAction("NewReview", new { MovieId, Title, Message });
         }
     }
 }

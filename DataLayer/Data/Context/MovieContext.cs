@@ -8,22 +8,23 @@ using System.Data;
 using Models;
 using Interfaces.ContextInterfaces;
 using DataLayer.Context;
+using Helpers;
 
 namespace DataLayer.Context
 {
     public class MovieContext : IMoviesContext
     {
-        ConnectionString conn = new ConnectionString();
+        SqlConnection conn = new SqlConnection(Connection.ConnectionString);
         public List<Movie> GetMovies()
         {
             List<Movie> movies = new List<Movie>();
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("GetMovies")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 DataTable dtResult = new DataTable();
                 dtResult.Load(cmd.ExecuteReader());
@@ -49,13 +50,13 @@ namespace DataLayer.Context
         }
         public void ChangeMovieWatched(int MovieId)
         {
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("UpdateMovie")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddWithValue("@MovieId", MovieId);
                 cmd.ExecuteNonQuery();
@@ -63,13 +64,13 @@ namespace DataLayer.Context
         }
         public void Add(Movie movie)
         {
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("AddMovie")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
 
                 cmd.Parameters.AddRange(new[]

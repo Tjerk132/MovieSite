@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace Helpers
 {
-    public static class Connection
+    public class Connection
     {
-        public static string ConnectionString { get; set; }
-
-        public static SqlConnection ConnectionFactory()
-        {
-            return new SqlConnection($@"{ConnectionString}");
-        }
+        public static string ConnectionString { get; set; }      
     }
 }

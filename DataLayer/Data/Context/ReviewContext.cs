@@ -8,21 +8,22 @@ using System.Data;
 using System.Web;
 using Models;
 using Interfaces.ContextInterfaces;
+using Helpers;
 
 namespace DataLayer.Context
 {
     public class ReviewContext : IReviewContext
-    {    
-        ConnectionString conn = new ConnectionString();
+    {
+        SqlConnection conn = new SqlConnection(Connection.ConnectionString);
         public void Add(Review review, int MovieId)
         {
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("AddReview")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddRange(new[]
                 {
@@ -39,14 +40,13 @@ namespace DataLayer.Context
         {
             List<Review> reviews = new List<Review>();
 
-            ConnectionString conn = new ConnectionString();
-            using (conn.connectionstring)
+            using (conn)
             {
-                conn.connectionstring.Open();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("GetReviews")
                 {
                     CommandType = CommandType.StoredProcedure,
-                    Connection = conn.connectionstring
+                    Connection = conn
                 };
                 cmd.Parameters.AddWithValue("@MovieId", MovieId);
                 cmd.ExecuteNonQuery();
