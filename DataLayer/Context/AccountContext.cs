@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
-using System.Web;
 using Models;
 using Helpers;
 using Interfaces.ContextInterfaces;
-using DataLayer.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Context
 {
     public class AccountContext : IAccountContext
-    {    
+    {
         SqlConnection conn = new SqlConnection(Connection.ConnectionString);   
         public Account LoginUser(Account account)
         {  
@@ -85,17 +81,11 @@ namespace DataLayer.Context
                 dtResult.Load(cmd.ExecuteReader());
                 foreach (DataRow dr in dtResult.Rows)
                 {
+                    string Title = dr[0].ToString();
                     DateTime.TryParse(dr[1].ToString(), out DateTime ReviewDate);
                     int.TryParse(dr[2].ToString(), out int StarRating);
 
-                    Review review = new Review
-                    (
-                        ReviewDate,
-                        "",
-                        "",
-                        StarRating
-                    );
-                    review.Title = dr[0].ToString();
+                    Review review = new Review(ReviewDate, StarRating, Title);
 
                     reviews.Add(review);
                 }

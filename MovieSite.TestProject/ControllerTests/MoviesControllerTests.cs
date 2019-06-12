@@ -1,5 +1,6 @@
 ﻿using Interfaces.ContextInterfaces;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,8 @@ namespace MovieSiteTestProject.ControllerTests
     public class MoviesControllerTests
     {
         private Mock<IMoviesLogic> logicmock;
-        private Mock<IMoviesContext> contextmock;
         private Mock<IUserSession> sessionmock;
+        private Mock<IMoviesRepository> repositorymock;
 
         private MoviesController controller;
         private readonly MoviesLogic MoviesLogic;
@@ -29,10 +30,10 @@ namespace MovieSiteTestProject.ControllerTests
         public MoviesControllerTests()
         {
             logicmock = new Mock<IMoviesLogic>();
-            contextmock = new Mock<IMoviesContext>();
             sessionmock = new Mock<IUserSession>();
+            repositorymock = new Mock<IMoviesRepository>();
 
-            MoviesLogic = new MoviesLogic(contextmock.Object);
+            MoviesLogic = new MoviesLogic(repositorymock.Object);
             account = new Account();
             controller = new MoviesController(logicmock.Object, sessionmock.Object);
 

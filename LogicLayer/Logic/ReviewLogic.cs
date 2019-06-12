@@ -6,18 +6,17 @@ using Models;
 using Interfaces.ContextInterfaces;
 using Repositories.Repositories;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 
 namespace LogicLayer.Logic
 {
     public class ReviewLogic : IReviewLogic
     {
-        private readonly IReviewContext _context;
-        public ReviewLogic(IReviewContext context)
+        private readonly IReviewRepository Repository;
+        public ReviewLogic(IReviewRepository repository)
         {
-            _context = context;
-            Repository = new ReviewRepository(_context);
+            Repository = repository;
         }
-        private ReviewRepository Repository { get; }
 
         public void AddReview(Review review, int MovieId)
         {

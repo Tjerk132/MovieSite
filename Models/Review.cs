@@ -21,5 +21,11 @@ namespace Models
             Autor = autor;
             StarRating = starrating;
         }
+        public Review(DateTime date, int starrating, string title)
+        {
+            Date = date;
+            StarRating = starrating;
+            Title = title;
+        }
     }
 }

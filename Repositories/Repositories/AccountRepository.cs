@@ -1,17 +1,18 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using Models;
 using System.Collections.Generic;
 
 namespace Repositories.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly IAccountContext _context;
         public AccountRepository(IAccountContext context)
         {
             _context = context;
         }
-        public Account LoginResult(Account account)
+        public Account LoginUser(Account account)
         {
             return _context.LoginUser(account);
         }

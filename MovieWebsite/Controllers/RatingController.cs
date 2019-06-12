@@ -18,8 +18,7 @@ namespace MovieSite.Controllers
             _ratinglogic = ratinglogic;
             _userSession = usersession;
         }
-        [HttpPost]
-        public IActionResult SubmitRating(int Rating, int MovieId)
+        public string SubmitRating(int Rating, int MovieId)
         {
             string Message;
             Account account = _userSession.GetSession;
@@ -29,7 +28,7 @@ namespace MovieSite.Controllers
             }
             else Message = "Please insert a rating between 0 and 100";
 
-            return RedirectToAction("Index","Movies", new { Message });
+            return  Message;
         }
     }
 }

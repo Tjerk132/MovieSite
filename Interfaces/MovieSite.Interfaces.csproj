@@ -34,6 +34,9 @@
     <Reference Include="Microsoft.AspNetCore.Http">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,13 +49,17 @@
   <ItemGroup>
     <Compile Include="ContextInterfaces\IAccountContext.cs" />
     <Compile Include="ContextInterfaces\IMoviesContext.cs" />
-    <Compile Include="ContextInterfaces\IRatingContex.cs" />
+    <Compile Include="ContextInterfaces\IRatingContext.cs" />
     <Compile Include="ContextInterfaces\IReviewContext.cs" />
     <Compile Include="LogicInterfaces\IAccountLogic.cs" />
     <Compile Include="LogicInterfaces\IMoviesLogic.cs" />
     <Compile Include="LogicInterfaces\IRatingLogic.cs" />
     <Compile Include="LogicInterfaces\IReviewLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryInterfaces\IAccountRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IMoviesRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IRatingRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IReviewRepository..cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\MovieSite.Models.csproj">

@@ -2,19 +2,17 @@
 using Interfaces.ContextInterfaces;
 using Repositories.Repositories;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 
 namespace LogicLayer.Logic
 {
     public class RatingLogic : IRatingLogic
     {
-        private readonly IRatingContext _context;
-        public RatingLogic(IRatingContext context)
+        private readonly IRatingRepository Repository;
+        public RatingLogic(IRatingRepository repository)
         {
-            _context = context;
-            Repository = new RatingRepository(context);
+            Repository = repository;
         }
-        private RatingRepository Repository { get; }
-
         public string SubmitRating(int RatingNumber, int MovieId, Account account)
         {
             return Repository.SubmitRating(RatingNumber, MovieId, account);

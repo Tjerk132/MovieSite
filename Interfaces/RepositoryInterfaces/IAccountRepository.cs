@@ -1,9 +1,13 @@
 ﻿using Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Interfaces.ContextInterfaces
+namespace Interfaces.RepositoryInterfaces
 {
-    public interface IAccountContext
+    public interface IAccountRepository
     {
         Account LoginUser(Account account);
         void CreateNew(Account account);

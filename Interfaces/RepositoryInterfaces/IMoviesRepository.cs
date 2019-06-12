@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace Interfaces.ContextInterfaces
+namespace Interfaces.RepositoryInterfaces
 {
-    public interface IMoviesContext
-    {
+    public interface IMoviesRepository
+    {            
         List<Movie> GetMovies();
-        Movie AddMovie(Movie movie);
+        void AddMovie(Movie movie);
         void ChangeMovieWatched(int MovieId);
     }
 }

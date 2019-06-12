@@ -1,4 +1,5 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Models;
 using Models.Enumeration;
@@ -12,12 +13,12 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class MoviesLogicTests
     {
-        private Mock<IMoviesContext> moviecontextmock;
+        private Mock<IMoviesRepository> repositorymock;
         private MoviesLogic logic;
         public MoviesLogicTests()
         {
-            moviecontextmock = new Mock<IMoviesContext>();
-            logic = new MoviesLogic(moviecontextmock.Object);
+            repositorymock = new Mock<IMoviesRepository>();
+            logic = new MoviesLogic(repositorymock.Object);
         }
         [Fact]
         public void TestFilterMovies()

@@ -1,4 +1,5 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Models;
 using Moq;
@@ -11,12 +12,12 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class ReviewLogicTests
     {
-        private Mock<IReviewContext> reviewcontextmock;
+        private Mock<IReviewRepository> repositorymock;
         private ReviewLogic logic;
         public ReviewLogicTests()
         {
-            reviewcontextmock = new Mock<IReviewContext>();
-            logic = new ReviewLogic(reviewcontextmock.Object);
+            repositorymock = new Mock<IReviewRepository>();
+            logic = new ReviewLogic(repositorymock.Object);
         }
         [Fact]
         public void TestRatingAverages()

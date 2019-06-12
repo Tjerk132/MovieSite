@@ -1,10 +1,11 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using Models;
 using System.Collections.Generic;
 
 namespace Repositories.Repositories
 {
-    public class MoviesRepository
+    public class MoviesRepository : IMoviesRepository
     {
         private readonly IMoviesContext _context;
         public MoviesRepository(IMoviesContext context)
@@ -15,9 +16,9 @@ namespace Repositories.Repositories
         {
             return _context.GetMovies();
         }
-        public void Add(Movie movie)
+        public void AddMovie(Movie movie)
         {
-            _context.Add(movie);
+            _context.AddMovie(movie);
         }
         public void ChangeMovieWatched(int MovieId)
         {

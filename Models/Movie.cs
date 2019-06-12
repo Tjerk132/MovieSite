@@ -21,5 +21,10 @@ namespace Models
             Watched = watched;
             Rating = rating;
         }
+        public Movie(string title, DateTime releasedate)
+        {
+            Title = title;
+            ReleaseDate = releasedate;
+        }
     }
 }

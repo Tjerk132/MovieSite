@@ -1,4 +1,5 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Models;
 using Models.Enumeration;
@@ -12,13 +13,13 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class AccountLogicTests
     {
-        private Mock<IAccountContext> accountcontextmock;
+        private Mock<IAccountRepository> repositorymock;
         private AccountLogic logic;
         private Account account;
         public AccountLogicTests()
         {
-            accountcontextmock = new Mock<IAccountContext>();
-            logic = new AccountLogic(accountcontextmock.Object);
+            repositorymock = new Mock<IAccountRepository>();
+            logic = new AccountLogic(repositorymock.Object);
             account = new Account();
         }
         [Theory]
@@ -30,7 +31,7 @@ namespace MovieSiteTestProject.LogicTests
             account.Name = Name;
             account.Password = Password;
 
-            accountcontextmock.Setup(x => x.LoginUser(account))
+            repositorymock.Setup(x => x.LoginUser(account))
                 .Returns(new Account { Name = account.Name, Password = account.Password, AccountId = 2});
 
             //Act

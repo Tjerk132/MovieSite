@@ -5,23 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Repositories.Repositories;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 
 namespace LogicLayer.Logic
 {
     public class MoviesLogic : IMoviesLogic
     {
-        private readonly IMoviesContext _context;
-        public MoviesLogic(IMoviesContext context)
+        private readonly IMoviesRepository Repository;
+        public MoviesLogic(IMoviesRepository repository)
         {
-            _context = context;
-            Repository = new MoviesRepository(_context);
+            Repository = repository;
         }
-        private MoviesRepository Repository { get; }
-
         public void AddMovie(string Title, DateTime ReleaseDate)
         {
-            Movie movie = new Movie(0, Title, ReleaseDate, 0, 0);
-            Repository.Add(movie);
+            Movie movie = new Movie(Title, ReleaseDate);
+            Repository.AddMovie(movie);
         }
         public List<Movie>GetMovies()
         {

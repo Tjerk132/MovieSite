@@ -9,6 +9,7 @@ using Models;
 using Interfaces.ContextInterfaces;
 using DataLayer.Context;
 using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Context
 {
@@ -62,7 +63,7 @@ namespace DataLayer.Context
                 cmd.ExecuteNonQuery();
             }
         }
-        public void Add(Movie movie)
+        public Movie AddMovie(Movie movie)
         {
             using (conn)
             {
@@ -84,6 +85,7 @@ namespace DataLayer.Context
                 });
                 cmd.ExecuteNonQuery();
             }
+            return movie;
         }
     }
 }

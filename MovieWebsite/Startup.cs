@@ -14,26 +14,17 @@ using MovieSite.Controllers;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using Interfaces.RepositoryInterfaces;
+using Repositories.Repositories;
 
 namespace MovieViewer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            // Configuration = configuration;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-            Configuration = builder.Build();
-        }
-
-        public IConfiguration Configuration { get; }
-        public static string ConnectionString { get; private set; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
 
@@ -69,7 +60,13 @@ namespace MovieViewer
             services.AddScoped<IMoviesContext, MovieContext>();
             services.AddScoped<IReviewContext, ReviewContext>();
             services.AddScoped<IRatingContext, RatingContext>();
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -86,12 +83,15 @@ namespace MovieViewer
 
             var builder = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
+            .AddJsonFile($"{env.ContentRootPath}appsettings.json", optional:true)
             .AddJsonFile("appsettings.json")
-            .Build();
+            .AddEnvironmentVariables();
 
-            ConnectionString = builder["ConnectionStrings:DefaultConnection"];
-            Connection.ConnectionString = ConnectionString;
-            
+            Configuration = builder.Build();
+
+            var token = Configuration.GetSection("ConnectionStrings:DefaultConnection");
+            Connection.ConnectionString = token.Value;
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

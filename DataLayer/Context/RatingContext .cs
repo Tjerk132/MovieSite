@@ -8,10 +8,11 @@ using System.Data;
 using Models;
 using Interfaces.ContextInterfaces;
 using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Context
 {
-    public class RatingContext : IRatingContext
+    public class RatingContext : DbContext, IRatingContext
     {
         SqlConnection conn = new SqlConnection(Connection.ConnectionString);
         public string SubmitRating(int Rating, int MovieId, Account account)

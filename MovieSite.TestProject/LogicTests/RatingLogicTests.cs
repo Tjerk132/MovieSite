@@ -1,4 +1,5 @@
 ﻿using Interfaces.ContextInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Models;
 using Moq;
@@ -11,12 +12,12 @@ namespace MovieSiteTestProject.LogicTests
 {
     public class RatingLogicTests
     {
-        private Mock<IRatingContext> ratingcontextmock;
+        private Mock<IRatingRepository> repositorymock;
         private RatingLogic logic;
         public RatingLogicTests()
         {
-            ratingcontextmock = new Mock<IRatingContext>();
-            logic = new RatingLogic(ratingcontextmock.Object);
+            repositorymock = new Mock<IRatingRepository>();
+            logic = new RatingLogic(repositorymock.Object);
         }
         [Theory]
         [InlineData("Pieter")]
@@ -24,7 +25,7 @@ namespace MovieSiteTestProject.LogicTests
         {
             //Arrange
             Account account = new Account { Name = Name };
-            ratingcontextmock.Setup(x => x.SubmitRating(65, 3, account))
+            repositorymock.Setup(x => x.SubmitRating(65, 3, account))
                 .Returns("Rating added, Thank you for your feedback");
 
             //Act

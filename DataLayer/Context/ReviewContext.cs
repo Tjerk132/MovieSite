@@ -9,13 +9,14 @@ using System.Web;
 using Models;
 using Interfaces.ContextInterfaces;
 using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Context
 {
-    public class ReviewContext : IReviewContext
-    {
+    public class ReviewContext : DbContext, IReviewContext
+    {    
         SqlConnection conn = new SqlConnection(Connection.ConnectionString);
-        public void Add(Review review, int MovieId)
+        public void AddReview(Review review, int MovieId)
         {
             using (conn)
             {
@@ -56,15 +57,11 @@ namespace DataLayer.Context
                 foreach (DataRow dr in dtResult.Rows)
                 {
                     DateTime.TryParse(dr[1].ToString(), out DateTime ReviewDate);
+                    string Text = dr[2].ToString();
+                    string Autor = dr[3].ToString();
                     int.TryParse(dr[4].ToString(), out int StarRating);;
 
-                    Review review = new Review
-                    (
-                        ReviewDate,
-                        dr[2].ToString(),
-                        dr[3].ToString(),
-                        StarRating
-                    );
+                    Review review = new Review (ReviewDate, Text, Autor, StarRating);
 
                     reviews.Add(review);
                 }

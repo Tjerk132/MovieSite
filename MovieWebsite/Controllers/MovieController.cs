@@ -33,7 +33,7 @@ namespace MovieSite.Controllers
                 {
                     Account = _userSession.GetSession,
                     Movies = _logic.GetMovies(),
-                    Message = Message
+                    Message = Message,             
                 };
                 return View(viewModel);
             }

@@ -1,9 +1,10 @@
-﻿using Interfaces.ContextInterfaces;
-using Models;
+﻿using Models;
+using Interfaces.RepositoryInterfaces;
+using Interfaces.ContextInterfaces;
 
 namespace Repositories.Repositories
 {
-    public class RatingRepository
+    public class RatingRepository : IRatingRepository
     {
         private readonly IRatingContext _context;
         public RatingRepository(IRatingContext context)

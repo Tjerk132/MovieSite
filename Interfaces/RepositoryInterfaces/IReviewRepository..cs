@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces.ContextInterfaces
+namespace Interfaces.RepositoryInterfaces
 {
-    public interface IReviewContext
+    public interface IReviewRepository
     {
         void AddReview(Review review, int MovieId);
         List<Review> GetReviews(int MovieId);

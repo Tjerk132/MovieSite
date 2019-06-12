@@ -1,5 +1,6 @@
 ﻿using Interfaces.ContextInterfaces;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 using LogicLayer.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,7 @@ namespace MovieSiteTestProject.ControllerTests
     {
         private Mock<IReviewLogic> logicmock;
         private Mock<IUserSession> sessionmock;
-
-        private Mock<IReviewContext> contextmock;
+        private Mock<IReviewRepository> repositorymock;
 
         private readonly ReviewLogic logic;
         private ReviewController controller;
@@ -32,9 +32,9 @@ namespace MovieSiteTestProject.ControllerTests
             logicmock = new Mock<IReviewLogic>();
             sessionmock = new Mock<IUserSession>();
 
-            contextmock = new Mock<IReviewContext>();
+            repositorymock = new Mock<IReviewRepository>();
 
-            logic = new ReviewLogic(contextmock.Object);
+            logic = new ReviewLogic(repositorymock.Object);
             controller = new ReviewController(logicmock.Object, sessionmock.Object);
 
             reviews = new List<Review>

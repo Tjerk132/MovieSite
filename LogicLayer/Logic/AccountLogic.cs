@@ -5,22 +5,21 @@ using Models.Enumeration;
 using Helpers;
 using Repositories.Repositories;
 using Interfaces.LogicInterfaces;
+using Interfaces.RepositoryInterfaces;
 
 namespace LogicLayer.Logic
 {
     public class AccountLogic : IAccountLogic
     {
-        private readonly IAccountContext _context;
-        public AccountLogic(IAccountContext context)
+        private readonly IAccountRepository Repository;
+        public AccountLogic(IAccountRepository repository)
         {
-            _context = context;
-            Repository = new AccountRepository(_context);
+            Repository = repository;
         }
-        private AccountRepository Repository { get; }
 
         public Account LoginUser(Account account)
         {
-            account = Repository.LoginResult(account);
+            account = Repository.LoginUser(account);
             if (account.AccountId == 1)
             {
                 account.Priority = Priority.Admin;
